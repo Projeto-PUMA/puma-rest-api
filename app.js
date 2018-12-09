@@ -6,13 +6,15 @@ const Knex = require('knex');
 const knexConfig = require('./knexfile');
 const { Model } = require('objection');
 const usuario = require('./src/api/usuario/routes');
-const authentication = require('./src/api/auth/routes')
+const authentication = require('./src/api/auth/routes');
+const authenticate = require('./src/api/middleware/authentication');
+
 const app = express();
 
 const knex = Knex(knexConfig.development);
 
 Model.knex(knex);
-
+app.use(authenticate);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

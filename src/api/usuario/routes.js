@@ -1,8 +1,7 @@
 const express = require('express');
 const usuarioController = require('./controller')
 const router = express.Router();
-const authentication = require('../middleware/authentication');
-const authorization = require('../middleware/authorization');
+const authorize = require('../middleware/authorization');
 
 router.get('/', async (req, res) => {
     const response = await usuarioController.getAll();
@@ -11,7 +10,7 @@ router.get('/', async (req, res) => {
     res.json(response);
 });
 
-router.get('/:cpf', authentication, async (req, res) => {
+router.get('/:cpf', async (req, res) => {
     const response = await usuarioController.getByCpfWithPapel(req.params.cpf);
 
     res.status(response.statusCode);
