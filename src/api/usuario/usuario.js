@@ -19,7 +19,6 @@ class Usuario extends Password(Model) {
         return 'cpf';
     }
 
-
     $formatJson(json) {
         // Remember to call the super class's implementation.
         json = super.$formatJson(json);
@@ -31,8 +30,6 @@ class Usuario extends Password(Model) {
         return {
             noticia: {
                 relation: Model.HasManyRelation,
-                // The related model. This can be either a Model subclass constructor or an
-                // absolute file path to a module that exports one.
                 modelClass: reqPath + '/noticia/noticia',
                 join: {
                     from: 'usuario.cpf',
@@ -41,8 +38,6 @@ class Usuario extends Password(Model) {
             },
             papel: {
                 relation: Model.ManyToManyRelation,
-                // The related model. This can be either a Model subclass constructor or an
-                // absolute file path to a module that exports one.
                 modelClass: reqPath + 'papel/papel',
                 join: {
                     from: 'usuario.cpf',
@@ -51,6 +46,14 @@ class Usuario extends Password(Model) {
                         to: 'usuario_papel.idPapel'
                     },
                     to: 'papel.idPapel'
+                }
+            },
+            profissao: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: reqPath + '/profissao/profissao',
+                join: {
+                    from: 'usuario.idProfissao',
+                    to: 'profissao.codigo'
                 }
             }
         };

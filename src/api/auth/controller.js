@@ -23,17 +23,14 @@ module.exports = {
                     return await (defaultResponse(token));
                 }
                 else {
-                    console.log('senhaerrada')
                     return await (errorResponse('Bad Request'));
                 }
             }
             catch (err) {
-                console.log('erro if')
                 return await (errorResponse(err.message));
             }
         }
         else {
-            console.log('coisa faltando')
             return await (errorResponse('Bad Request'));
         }
     }

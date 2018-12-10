@@ -22,7 +22,7 @@ module.exports = {
                 relate: true // relate true eh para relacionar num n:m ja existente
             }
 
-            const response = await usuario.query().allowInsert('papel').insertGraph(
+            const response = await usuario.query().allowInsert(['papel', 'profissao']).insertGraph(
                 body,
                 options
             );

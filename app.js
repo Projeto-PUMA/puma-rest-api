@@ -8,12 +8,15 @@ const { Model } = require('objection');
 const usuario = require('./src/api/usuario/routes');
 const authentication = require('./src/api/auth/routes');
 const authenticate = require('./src/api/middleware/authentication');
+const profissao = require('./src/api/profissao/routes')
+const noticia = require('./src/api/noticia/routes')
 
 const app = express();
 
 const knex = Knex(knexConfig.development);
 
 Model.knex(knex);
+
 app.use(authenticate);
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,6 +25,8 @@ app.use(cookieParser());
 
 app.use('/api/v1/usuario', usuario);
 app.use('/api/v1/auth', authentication);
+app.use('/api/v1/profissao', profissao);
+app.use('/api/v1/noticia', noticia)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -35,7 +40,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.json({
     message: err.message,
-    eror: req.app.get('env') === 'development' ? err : {}
+    error: req.app.get('env') === 'development' ? err : {}
   });
 
 });

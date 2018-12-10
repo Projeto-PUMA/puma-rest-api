@@ -4,24 +4,28 @@ const Model = require('objection').Model;
 const path = require('path');
 let reqPath = path.join(__dirname, '../');
 
-class Noticia extends Model {
+class Profissao extends Model {
     // Table name is the only required property.
     static get tableName() {
-        return 'noticia';
+        return 'profissao';
+    }
+
+    static get idColumn() {
+        return 'codigo';
     }
 
     static get relationMappings() {
         return {
             usuario: {
-                relation: Model.BelongsToOneRelation,
-                modelClass: reqPath + 'usuario/usuario',
+                relation: Model.HasManyRelation,
+                modelClass: reqPath + '/usuario/usuario',
                 join: {
-                    from: 'noticia.cpfUsuario',
-                    to: 'usuario.cpf'
+                    from: 'profissao.codigo',
+                    to: 'usuario.idProfissao'
                 }
             }
-        };
+        }
     }
 }
 
-module.exports = Noticia;
+module.exports = Profissao;

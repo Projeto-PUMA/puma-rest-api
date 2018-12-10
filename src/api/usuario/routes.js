@@ -3,7 +3,7 @@ const usuarioController = require('./controller')
 const router = express.Router();
 const authorize = require('../middleware/authorization');
 
-router.get('/', async (req, res) => {
+router.get('/', authorize('ADMIN'), async (req, res) => {
     const response = await usuarioController.getAll();
 
     res.status(response.statusCode);

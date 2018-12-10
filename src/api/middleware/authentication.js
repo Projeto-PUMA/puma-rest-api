@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
         }
     }
     else {
+        console.log('next');
         next();
     }
 }
