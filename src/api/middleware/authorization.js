@@ -18,8 +18,6 @@ module.exports = (...allowed) => {
                 res.status(403).json({ message: 'Forbidden' });
             }
         } else {
-            console.log('aki');
-
             res.status(403).json({ message: 'Forbidden' });
         }
     }

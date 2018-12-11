@@ -1,22 +1,39 @@
 const express = require('express');
+const noticiaController = require('./controller')
 const router = express.Router();
 const authorize = require('../middleware/authorization');
-const noticia = require('./noticia');
 
 router.get('/', async (req, res) => {
-    const response = await noticia.query();
+    const response = await noticiaController.getAll();
+
+    res.status(response.statusCode);
+    res.json(response);
+});
+
+router.get('/:id', async (req, res) => {
+    const response = await noticiaController.getById(req.params.id);
+
+    res.status(response.statusCode);
     res.json(response);
 });
 
 router.post('/', async (req, res) => {
-    console.log(req.body);
-    const body = { titulo: 'projeto novo', subtitulo: 'projeto novo', texto: 'realmente novo', cpfUsuario: 'user' }
+    const response = await noticiaController.create(req.body);
 
-    const options = {
-        relate: true // relate true eh para relacionar num n:m ja existente
-    }
+    res.status(response.statusCode);
+    res.json(response);
+});
 
-    const response = await noticia.query().insert(body, options);
+router.delete('/:id', async (req, res) => {
+    const response = await noticiaController.delete(req.params.id);
+
+    res.status(response.statusCode);
+    res.json('oi');
+});
+
+router.patch('/:id', async (req, res) => {
+    const response = await noticiaController.patch(req.params.id, req.body);
+    res.status(response.statusCode);
     res.json(response);
 });
 

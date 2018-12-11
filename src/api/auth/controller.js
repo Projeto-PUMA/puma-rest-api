@@ -4,8 +4,6 @@ const { defaultResponse, errorResponse } = require('../../util/response');
 const Usuario = require('../usuario/usuario');
 const jwt = require('jsonwebtoken');
 
-
-
 module.exports = {
     auth: async (body) => {
         if (body.cpf && body.senha) {
@@ -14,8 +12,7 @@ module.exports = {
             const usuario = await Usuario.query().findById(cpf).eager('papel');
             try {
                 if (await usuario.verifyPassword(senha)) {
-                    await console.log(usuario);
-                    const payload = await { usuario };
+                    const payload = await { cpf: usuario.cof, nome: usuario.nome, email: usuario.email, papel: usuario.papel };
                     const token = await jwt.sign(payload, process.env.JTWKEY,
                         {
                             expiresIn: process.env.TOKENEXPIRES

@@ -11,6 +11,8 @@ exports.up = function (knex, Promise) {
                 .string('subtitulo');
             table
                 .string('texto');
+            table.timestamp('dataCriacao').defaultTo(knex.fn.now());
+            table.timestamp('dataAtualizacao').defaultTo(knex.fn.now());
             table
                 .string('cpfUsuario')
                 .references('usuario.cpf')
