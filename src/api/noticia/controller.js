@@ -1,8 +1,7 @@
 const noticia = require('./noticia');
 const usuario = require('../usuario/usuario');
-
 const { defaultResponse, errorResponse } = require('../../util/response');
-status = require('http-status');
+const status = require('http-status');
 
 module.exports = {
     getAll: async () => {
@@ -42,7 +41,7 @@ module.exports = {
 
     getById: async (id) => {
         try {
-            const response = await noticia.query().findById(id).eager('usuario').pick(usuario, ['cpf', 'nome', 'email']);
+            const response = await noticia.query().findById(id).eager('usuario').pick(usuario, ['nome', 'email']);
             if (response === undefined) {
                 return await errorResponse('Not Found', status.NOT_FOUND);
             }
@@ -65,5 +64,5 @@ module.exports = {
         catch (err) {
             return await errorResponse(err.message, status.UNPROCESSABLE_ENTITY)
         }
-    },
+    }
 }

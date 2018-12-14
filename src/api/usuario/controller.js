@@ -1,6 +1,6 @@
 const usuario = require('./usuario');
 const { defaultResponse, errorResponse } = require('../../util/response');
-status = require('http-status');
+const status = require('http-status');
 
 module.exports = {
     getAll: async () => {

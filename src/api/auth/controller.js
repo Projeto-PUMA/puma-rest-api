@@ -1,4 +1,3 @@
-const status = require('http-status');
 require('dotenv').config();
 const { defaultResponse, errorResponse } = require('../../util/response');
 const Usuario = require('../usuario/usuario');
