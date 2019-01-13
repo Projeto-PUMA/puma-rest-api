@@ -1,41 +1,41 @@
-import * as usuarioController from './controller';
+import * as noticiaController from './controller';
 
 export default (route) => {
   route
-    .get('/usuario', async (req, res, next) => {
-      const response = await usuarioController.getAll();
+    .get('/noticia', async (req, res, next) => {
+      const response = await noticiaController.getAll(req);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route('/usuario')
+    .route('/noticia')
     .post(async (req, res) => {
-      const response = await usuarioController.create(req.body);
+      const response = await noticiaController.create(req.body);
       res.status(response.statusCode);
       res.json(response.data);
     });
 
   route
-    .route('/usuario/:id')
+    .route('/noticia/:id')
     .get(async (req, res) => {
-      const response = await usuarioController.findById(req.params.id);
+      const response = await noticiaController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route('/usuario/:id')
+    .route('/noticia/:id')
     .patch(async (req, res) => {
-      const response = await usuarioController.patch(req.params.id, req.body);
+      const response = await noticiaController.patch(req.params.id, req.body);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route('/usuario/:id')
+    .route('/noticia/:id')
     .delete(async (req, res) => {
-      const response = await usuarioController.deleteById(req.params.id);
+      const response = await noticiaController.deleteById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
     });

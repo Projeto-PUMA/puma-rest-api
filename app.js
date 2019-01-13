@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import knex from './src/database/db';
 import usuarioRoutes from './src/api/resources/usuario/routes';
+import noticiaRoutes from './src/api/resources/noticia/routes';
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.set('port', process.env.PORT || 3000);
 
 const router = express.Router();
 app.use('/api', router);
+
 usuarioRoutes(router);
+noticiaRoutes(router);
 
 export default app;

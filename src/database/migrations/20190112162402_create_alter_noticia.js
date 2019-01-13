@@ -5,7 +5,8 @@ exports.up = function (knex, Promise) {
       table
         .integer('noticia_categoria_id')
         .references('noticia_categoria.id')
-        .onDelete('SET NULL')
+        .notNullable()
+        .onDelete('CASCADE')
         .onUpdate('CASCADE');
     }),
   ]);

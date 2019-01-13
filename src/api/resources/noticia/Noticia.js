@@ -1,11 +1,10 @@
 import { Model } from 'objection';
 import path from 'path';
-import EnderecoCategoria from './EnderecoCategoria';
+import NoticiaCategoria from './NoticiaCategoria';
 
-class Endereco extends Model {
-  // Table name is the only required property.
+class Noticia extends Model {
   static get tableName() {
-    return 'endereco';
+    return 'noticia';
   }
 
   static get idColumn() {
@@ -15,23 +14,23 @@ class Endereco extends Model {
   static get relationMappings() {
     return {
       usuario: {
-        relation: Model.HasManyRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: path.join(__dirname, '../usuario/Usuario'),
         join: {
-          from: 'endereco.id',
-          to: 'usuario.endereco_id',
+          from: 'noticia.usuario_id',
+          to: 'usuario.id',
         },
       },
       categoria: {
         relation: Model.BelongsToOneRelation,
-        modelClass: EnderecoCategoria,
+        modelClass: NoticiaCategoria,
         join: {
-          from: 'endereco.endereco_categoria_id',
-          to: 'endereco_categoria.id',
+          from: 'noticia.noticia_categoria_id',
+          to: 'noticia_categoria.id',
         },
       },
     };
   }
 }
 
-module.exports = Endereco;
+module.exports = Noticia;

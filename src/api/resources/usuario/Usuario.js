@@ -3,6 +3,8 @@ import ObjectionPassword from 'objection-password';
 import Papel from './Papel';
 import Profissao from './Profissao';
 import Endereco from '../endereco/Endereco';
+import Telefone from './Telefone';
+import Noticia from '../noticia/Noticia';
 
 const Password = ObjectionPassword({ passwordField: 'senha' });
 
@@ -51,6 +53,22 @@ class Usuario extends Password(Model) {
         join: {
           from: 'usuario.endereco_id',
           to: 'endereco.id',
+        },
+      },
+      telefone: {
+        relation: Model.HasManyRelation,
+        modelClass: Telefone,
+        join: {
+          from: 'usuario.id',
+          to: 'telefone.usuario_id',
+        },
+      },
+      noticia: {
+        relation: Model.HasManyRelation,
+        modelClass: Noticia,
+        join: {
+          from: 'usuario.id',
+          to: 'noticia.usuario_id',
         },
       },
     };
