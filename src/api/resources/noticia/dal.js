@@ -49,18 +49,6 @@ export async function findById(id) {
     }
 }
 
-export async function findByEmail(email) {
-    try {
-        const noticia = Noticia.query().first().where('email', email);
-        if (noticia === undefined) {
-            throw new Error('Not Found');
-        }
-        return noticia;
-    } catch (error) {
-        throw (error);
-    }
-}
-
 export async function patch(id, body) {
     try {
         const options = {

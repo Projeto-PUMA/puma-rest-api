@@ -5,7 +5,7 @@ export async function getAll() {
   try {
     const usuario = await Usuario
       .query()
-      .eager('[endereco.categoria, profissao, telefone]')
+      .eager('[endereco.categoria, profissao, telefone, papel]')
       .select('id', 'cpf', 'nome', 'escolaridade',
         'email', 'created_at', 'updated_at');
     if (usuario === undefined) {
@@ -47,13 +47,30 @@ export async function findById(id) {
   }
 }
 
-export async function findByEmail(email) {
+export async function generatePayload(body) {
   try {
-    const usuario = Usuario.query().first().where('email', email);
+    const usuario = await Usuario.query()
+      .first()
+      .eager('papel')
+      .where('cpf', body.cpf);
+
     if (usuario === undefined) {
       throw new Error('Not Found');
     }
-    return usuario;
+
+    const passwordValid = await usuario.verifyPassword(body.senha);
+    if (!passwordValid) {
+      throw new Error('Invalid');
+    }
+
+    let payload = await {
+      id: usuario.id,
+      nome: usuario.nome,
+      papel: usuario.papel.map(papel => papel.nome),
+      email: usuario.email
+    };
+
+    return payload;
   } catch (error) {
     throw (error);
   }
