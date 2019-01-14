@@ -57,7 +57,7 @@ export async function findById(id) {
         selectStatusAndId: (builder) => {
           builder.select('status', 'id');
         },
-      })
+      });
     if (projeto === undefined) {
       throw new Error('Not Found');
     }

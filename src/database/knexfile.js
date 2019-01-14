@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
 const pg = require('pg');
 
 pg.defaults.ssl = false;
@@ -5,7 +8,7 @@ pg.defaults.ssl = false;
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://postgres:puma@localhost/pumadb',
+    connection: process.env.DATABASE_URL,
     migrations: {
       tableName: 'knex_migrations',
     },
