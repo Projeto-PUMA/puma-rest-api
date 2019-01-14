@@ -22,13 +22,13 @@ export async function create(body) {
     const options = {
       relate: true, insertMissing: true,
     };
-    const insertedGraph = await transaction(Usuario.knex(), trx => (
+    const usuario = await transaction(Usuario.knex(), trx => (
       Usuario.query(trx)
         // For security reasons, limit the relations that can be inserted.
-        .allowInsert('[endereco.[categoria], profissao, telefone]')
+        .allowInsert('[endereco, profissao, telefone]')
         .insertGraph(body, options)
     ));
-    return insertedGraph;
+    return usuario;
   } catch (error) {
     console.log(error);
     throw error;
@@ -47,43 +47,36 @@ export async function findById(id) {
   }
 }
 
-export async function generatePayload(body) {
+export async function findByCpf(cpf) {
   try {
     const usuario = await Usuario.query()
       .first()
       .eager('papel')
-      .where('cpf', body.cpf);
-
+      .where('cpf', cpf);
     if (usuario === undefined) {
       throw new Error('Not Found');
     }
-
-    const passwordValid = await usuario.verifyPassword(body.senha);
-    if (!passwordValid) {
-      throw new Error('Invalid');
-    }
-
-    let payload = await {
-      id: usuario.id,
-      nome: usuario.nome,
-      papel: usuario.papel.map(papel => papel.nome),
-      email: usuario.email
-    };
-
-    return payload;
+    return usuario;
   } catch (error) {
-    throw (error);
+    throw error;
   }
 }
 
+
 export async function patch(id, body) {
   try {
+
     const options = {
-      relate: true, noDelete: true,
+      noDelete: true, relate: true
     };
+
     const data = body;
     data.id = id;
-    const usuario = await Usuario.query().upsertGraph(data, options).where('id', id);
+    console.log(data);
+
+    const usuario = await Usuario.query()
+      .upsertGraph(data, options);
+
     if (usuario === undefined) {
       throw new Error('Not Found');
     }

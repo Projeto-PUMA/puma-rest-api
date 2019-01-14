@@ -45,3 +45,23 @@ export async function deleteById(id) {
     return errorResponse(err.message);
   }
 }
+
+export async function generatePayload(body) {
+  try {
+    const usuario = await usuarioDal.findByCpf(body.cpf);
+    const passwordValid = await usuario.verifyPassword(body.senha);
+    if (!passwordValid) {
+      throw new Error('Invalid');
+    }
+
+    const payload = await {
+      id: usuario.id,
+      nome: usuario.nome,
+      papel: usuario.papel.map(papel => papel.nome),
+      email: usuario.email,
+    };
+    return payload;
+  } catch (error) {
+    throw (error);
+  }
+}

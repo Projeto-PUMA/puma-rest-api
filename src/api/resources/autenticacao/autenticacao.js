@@ -1,6 +1,6 @@
 import HttpStatus from 'http-status';
 import jwt from 'jsonwebtoken';
-import { errorResponse } from '../../util/response';
+import { errorResponse } from '../../../util/response';
 
 require('dotenv').config();
 

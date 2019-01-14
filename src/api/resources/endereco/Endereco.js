@@ -2,6 +2,8 @@ import { Model } from 'objection';
 import path from 'path';
 import EnderecoCategoria from './EnderecoCategoria';
 
+console.log(path.join(__dirname, '../usuario/Usuario--------------------------'));
+
 class Endereco extends Model {
   // Table name is the only required property.
   static get tableName() {
@@ -20,6 +22,14 @@ class Endereco extends Model {
         join: {
           from: 'endereco.id',
           to: 'usuario.endereco_id',
+        },
+      },
+      empresa: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, '../projeto/Empresa'),
+        join: {
+          from: 'endereco.id',
+          to: 'empresa.endereco_id',
         },
       },
       categoria: {
