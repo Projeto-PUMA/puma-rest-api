@@ -7,7 +7,7 @@ export async function getAll(req) {
     const noticia = await Noticia
       .query()
       .skipUndefined()
-      .eager('usuario(selectNomeAndId)', {
+      .eager('[usuario(selectNomeAndId)]', {
         selectNomeAndId: (builder) => {
           builder.select('nome', 'id');
         },

@@ -2,7 +2,7 @@ import { Model } from 'objection';
 import ObjectionPassword from 'objection-password';
 import Papel from './Papel';
 import Profissao from './Profissao';
-import Endereco from '../endereco/Endereco'
+import Endereco from '../endereco/Endereco';
 import Telefone from './Telefone';
 import Noticia from '../noticia/Noticia';
 

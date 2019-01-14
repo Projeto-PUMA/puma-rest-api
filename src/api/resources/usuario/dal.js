@@ -65,9 +65,8 @@ export async function findByCpf(cpf) {
 
 export async function patch(id, body) {
   try {
-
     const options = {
-      noDelete: true, relate: true
+      noDelete: true, relate: true,
     };
 
     const data = body;
