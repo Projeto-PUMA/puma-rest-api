@@ -1,5 +1,6 @@
 import * as usuarioDal from './dal';
 import { defaultResponse, errorResponse } from '../../../util/response';
+import sendConfirmationMail from '../mailing/email-confirm'
 
 export async function getAll() {
   try {
@@ -13,6 +14,7 @@ export async function getAll() {
 export async function create(body) {
   try {
     const response = await usuarioDal.create(body);
+    await sendConfirmationMail(response);
     return defaultResponse(response);
   } catch (err) {
     return errorResponse(err.message);
@@ -50,7 +52,7 @@ export async function generatePayload(body) {
   try {
     const usuario = await usuarioDal.findByCpf(body.cpf);
     const passwordValid = await usuario.verifyPassword(body.senha);
-    if (!passwordValid) {
+    if (!passwordValid || !usuario.ativo) {
       throw new Error('Invalid');
     }
 

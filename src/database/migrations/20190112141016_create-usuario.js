@@ -24,6 +24,10 @@ exports.up = function (knex, Promise) {
         .unique()
         .notNullable();
       table
+        .boolean('ativo')
+        .defaultTo(false)
+        .notNullable();
+      table
         .string('profissao_id')
         .references('profissao.id')
         .onUpdate('CASCADE')

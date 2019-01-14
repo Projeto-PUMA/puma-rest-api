@@ -10,7 +10,7 @@ import usuarioRoutes from './src/api/resources/usuario/routes';
 import noticiaRoutes from './src/api/resources/noticia/routes';
 import projetoRoutes from './src/api/resources/projeto/routes';
 
-dotenv.config();
+dotenv.load();
 
 Model.knex(knex);
 
