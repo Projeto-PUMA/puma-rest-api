@@ -2,8 +2,8 @@ import Noticia from './Noticia';
 
 export async function getAll(req) {
   try {
-    const { limite, categoria } = req.query;
-
+    const { limit, idNoticiaCategoria } = req.query;
+    console.log(req.query);
     const noticia = await Noticia
       .query()
       .skipUndefined()
@@ -12,9 +12,9 @@ export async function getAll(req) {
           builder.select('nome', 'id');
         },
       })
-      .where('noticia_categoria_id', '=', categoria)
+      .where('noticia_categoria_id', '=', idNoticiaCategoria)
       .orderBy('created_at', 'desc')
-      .limit(limite);
+      .limit(limit);
 
     if (noticia === undefined) {
       throw new Error('Not Found');

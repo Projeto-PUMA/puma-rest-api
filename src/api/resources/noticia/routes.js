@@ -3,7 +3,7 @@ import { authentication } from '../autenticacao/controller';
 
 export default (route) => {
   route
-    .get('/noticia', authentication, async (req, res, next) => {
+    .get('/noticia', async (req, res, next) => {
       const response = await noticiaController.getAll(req);
       res.status(response.statusCode)
         .json(response.data);
@@ -11,7 +11,7 @@ export default (route) => {
 
   route
     .route('/noticia')
-    .post(authentication, async (req, res) => {
+    .post(async (req, res) => {
       const response = await noticiaController.create(req.body);
       res.status(response.statusCode);
       res.json(response.data);

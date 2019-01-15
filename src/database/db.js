@@ -12,8 +12,8 @@ console.log(config);
 
 const db = knex(config);
 
-db.raw('select 1+1 as result').then(function () {
-    console.log('DB Connected!')
-}).catch(err => { throw new Error(err) });
+db.raw('select 1+1 as result').then(() => {
+  console.log('DB Connected!');
+}).catch((err) => { throw new Error(err); });
 
 export default db;

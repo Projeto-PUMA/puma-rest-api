@@ -1,5 +1,5 @@
 import * as usuarioController from './controller';
-import { authentication } from '../autenticacao/controller'
+import { authentication } from '../autenticacao/controller';
 
 export default (route) => {
   route

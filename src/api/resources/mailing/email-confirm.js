@@ -17,7 +17,7 @@ export default async function sendConfirmationMail(usuario) {
   try {
     const token = await createEmailToken(usuario);
     const mailOptions = {
-      from: `Plataforma Unificada de Metodologia Ativa`, // sender address
+      from: 'Plataforma Unificada de Metodologia Ativa', // sender address
       to: `${usuario.email}`, // list of receivers
       subject: 'Confirme seu e-mail', // Subject line
       html: `<b>Olá! ${usuario.nome}</b>
