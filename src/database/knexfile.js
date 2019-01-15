@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 require('dotenv').config();
-dotenv.load({ path: "../../.env" });
+
+dotenv.load({ path: '../../.env' });
 const pg = require('pg');
 
 pg.defaults.ssl = false;

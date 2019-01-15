@@ -1,8 +1,9 @@
 import * as noticiaController from './controller';
+import { authentication } from '../autenticacao/controller';
 
 export default (route) => {
   route
-    .get('/noticia', async (req, res, next) => {
+    .get('/noticia', authentication, async (req, res, next) => {
       const response = await noticiaController.getAll(req);
       res.status(response.statusCode)
         .json(response.data);
@@ -10,7 +11,7 @@ export default (route) => {
 
   route
     .route('/noticia')
-    .post(async (req, res) => {
+    .post(authentication, async (req, res) => {
       const response = await noticiaController.create(req.body);
       res.status(response.statusCode);
       res.json(response.data);
@@ -25,7 +26,7 @@ export default (route) => {
     });
 
   route
-    .route('/noticia/:id')
+    .route(authentication, '/noticia/:id')
     .patch(async (req, res) => {
       const response = await noticiaController.patch(req.params.id, req.body);
       res.status(response.statusCode)
@@ -33,7 +34,7 @@ export default (route) => {
     });
 
   route
-    .route('/noticia/:id')
+    .route(authentication, '/noticia/:id')
     .delete(async (req, res) => {
       const response = await noticiaController.deleteById(req.params.id);
       res.status(response.statusCode)

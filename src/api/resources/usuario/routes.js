@@ -1,4 +1,5 @@
 import * as usuarioController from './controller';
+import { authentication } from '../autenticacao/controller'
 
 export default (route) => {
   route
@@ -18,7 +19,7 @@ export default (route) => {
 
   route
     .route('/usuario/:id')
-    .get(async (req, res) => {
+    .get(authentication, async (req, res) => {
       const response = await usuarioController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
