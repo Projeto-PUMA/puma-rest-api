@@ -175,6 +175,31 @@ Exemplo de url com parâmetros:
 
 | Parametro | Tipo    | Descricao     | Obrigatorio? |
 | --------- | ------- | ------------- | ------------ |
-| id        | integer | id da noticia | sim          |
+| id        | integer | ID da noticia | sim          |
+
+Retorno: `HTTP Status 200`.
+
+#### `POST /login`
+
+| Parametro | Tipo   | Descricao        | Obrigatorio? |
+| --------- | ------ | ---------------- | ------------ |
+| cpf       | string | Email do usuário | sim          |
+| senha     | string | Senha do usuário | sim          |
+
+- Exemplo de JSON: 
+  
+        {
+            "email": "email@email",
+            "sennha": "pwd",
+        }
+
+
+Retorno: `HTTP Status 200`.
+
+#### `GET /confirmacaoUsuario/:token`
+
+| Parametro | Tipo   | Descricao                                | Obrigatorio? |
+| --------- | ------ | ---------------------------------------- | ------------ |
+| token     | string | Token na url enviada no email do usuário | sim          |
 
 Retorno: `HTTP Status 200`.
