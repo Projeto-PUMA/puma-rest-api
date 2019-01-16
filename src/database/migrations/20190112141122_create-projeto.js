@@ -21,6 +21,7 @@ exports.up = function (knex, Promise) {
       table
         .integer('projeto_status_id')
         .references('projeto_status.id')
+        .defaultTo(1)
         .onDelete('SET NULL')
         .onUpdate('CASCADE');
       table

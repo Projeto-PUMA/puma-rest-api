@@ -10,6 +10,9 @@ exports.up = function (knex, Promise) {
         .string('estado')
         .notNullable();
       table
+        .string('cep')
+        .notNullable();
+      table
         .string('cidade')
         .notNullable();
       table
@@ -23,7 +26,6 @@ exports.up = function (knex, Promise) {
         .notNullable();
       table
         .string('complemento')
-        .notNullable();
       table
         .timestamps(true, true);
     })
