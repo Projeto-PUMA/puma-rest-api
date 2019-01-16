@@ -1,6 +1,6 @@
 import * as usuarioDal from './dal';
 import { defaultResponse, errorResponse } from '../../../util/response';
-import sendConfirmationMail from '../mailing/email-confirm';
+import sendConfirmationMail from '../../mailing/email-confirm';
 
 export async function getAll() {
   try {

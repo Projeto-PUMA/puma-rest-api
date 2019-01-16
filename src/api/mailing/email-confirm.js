@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { createEmailToken } from '../autenticacao/controller';
+import { createEmailToken } from '../resources/autenticacao/controller';
 
 require('dotenv').config();
 
