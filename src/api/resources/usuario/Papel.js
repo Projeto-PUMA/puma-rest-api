@@ -28,8 +28,8 @@ class Papel extends Model {
         relation: Model.HasManyRelation,
         modelClass: path.join(__dirname, '../autorizacao/Permissao'),
         join: {
-          from: 'recurso.id',
-          to: 'permissao.recurso_id',
+          from: 'papel.id',
+          to: 'permissao.papel_id',
         },
       },
     };

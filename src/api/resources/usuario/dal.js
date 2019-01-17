@@ -1,5 +1,6 @@
 import { transaction } from 'objection';
 import Usuario from './Usuario';
+import Permissao from '../autorizacao/Permissao'
 
 export async function getAll() {
   try {
@@ -24,7 +25,6 @@ export async function create(body) {
     };
     const usuario = await transaction(Usuario.knex(), trx => (
       Usuario.query(trx)
-        // For security reasons, limit the relations that can be inserted.
         .allowInsert('[endereco, profissao, telefone]')
         .insertGraph(body, options)
     ));
@@ -37,7 +37,19 @@ export async function create(body) {
 
 export async function findById(id) {
   try {
-    const usuario = await Usuario.query().findById(id);
+    const usuario = await Usuario.query().findById(id).eager('papel');
+
+    const papeis = usuario.papel.map(papel => papel.nome);
+
+    await console.log(papeis)
+
+    const permissoes = await Permissao
+      .query()
+      .select('acao.nome as action', 'papel.nome as role', 'recurso.nome as resource')
+      .joinRelation('[acao,  papel, recurso]')
+      .whereInComposite('papel.nome', papeis)
+
+    await console.log(permissoes)
     if (usuario === undefined) {
       throw new Error('Not Found');
     }

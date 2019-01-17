@@ -19,7 +19,7 @@ export default (route) => {
 
   route
     .route('/usuario/:id')
-    .get(authentication, async (req, res) => {
+    .get(async (req, res) => {
       const response = await usuarioController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
