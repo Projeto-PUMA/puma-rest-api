@@ -1,8 +1,8 @@
 
-exports.seed = function (knex) {
+exports.seed = knex => (
   // Deletes ALL existing entries
-  return knex('psp').del()
-    .then(() => knex('psp').insert([
+  knex('psp').del()
+    .then(() => (knex('psp').insert([
       {
         id: 1, nome: 'PSP 1', psp_pai_id: null, descricao: 'Probabilidade e Estatística',
       },
@@ -101,5 +101,5 @@ exports.seed = function (knex) {
       {
         id: 28, nome: 'Outras', psp_pai_id: 6, descricao: 'Outras',
       },
-    ]));
-};
+    ])))
+);

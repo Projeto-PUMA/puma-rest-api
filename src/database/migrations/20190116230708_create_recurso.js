@@ -1,19 +1,18 @@
 const { onUpdateTrigger } = require('../knexfile');
 
 exports.up = (knex, Promise) => Promise.all([
-  knex.schema.createTable('profissao', (table) => {
+  knex.schema.createTable('recurso', (table) => {
     table
-      .string('id')
+      .increments('id')
       .primary();
     table
-      .string('termo')
-      .notNullable();
+      .string('nome');
     table
       .timestamps(true, true);
   })
-    .then(() => knex.raw(onUpdateTrigger('profissao'))),
+    .then(() => knex.raw(onUpdateTrigger('recurso'))),
 ]);
 
 exports.down = (knex, Promise) => Promise.all([
-  knex.schema.dropTable('profissao'),
+  knex.schema.dropTable('recurso'),
 ]);

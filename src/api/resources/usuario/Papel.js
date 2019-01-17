@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import path from 'path';
 
 class Papel extends Model {
   static get tableName() {
@@ -21,6 +22,14 @@ class Papel extends Model {
             to: 'usuario_papel.papel_id',
           },
           to: 'usuario.id',
+        },
+      },
+      permissao: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, '../autorizacao/Permissao'),
+        join: {
+          from: 'recurso.id',
+          to: 'permissao.recurso_id',
         },
       },
     };

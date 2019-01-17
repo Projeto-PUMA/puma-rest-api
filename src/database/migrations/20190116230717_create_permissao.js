@@ -1,10 +1,15 @@
 const { onUpdateTrigger } = require('../knexfile');
 
 exports.up = (knex, Promise) => Promise.all([
-  knex.schema.createTable('usuario_papel', (table) => {
+  knex.schema.createTable('permissao', (table) => {
     table
-      .integer('usuario_id')
-      .references('usuario.id')
+      .integer('recurso_id')
+      .references('recurso.id')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
+    table
+      .integer('acao_id')
+      .references('acao.id')
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
     table
@@ -13,13 +18,13 @@ exports.up = (knex, Promise) => Promise.all([
       .onDelete('CASCADE')
       .onUpdate('CASCADE');
     table
-      .primary(['usuario_id', 'papel_id']);
+      .primary(['recurso_id', 'papel_id', 'acao_id']);
     table
       .timestamps(true, true);
   })
-    .then(() => knex.raw(onUpdateTrigger('usuario_papel'))),
+    .then(() => knex.raw(onUpdateTrigger('permissao'))),
 ]);
 
 exports.down = (knex, Promise) => Promise.all([
-  knex.schema.dropTable('usuario_papel'),
+  knex.schema.dropTable('permissao'),
 ]);
