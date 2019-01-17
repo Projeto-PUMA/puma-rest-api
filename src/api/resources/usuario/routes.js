@@ -1,5 +1,6 @@
 import * as usuarioController from './controller';
 import { authentication } from '../autenticacao/controller';
+import autorizacao from '../autorizacao/controller';
 
 export default (route) => {
   route
@@ -19,7 +20,8 @@ export default (route) => {
 
   route
     .route('/usuario/:id')
-    .get(async (req, res) => {
+    .get(autorizacao("turma", "read"), async (req, res, next) => {
+      console.log(req.level)
       const response = await usuarioController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
