@@ -37,7 +37,6 @@ export async function create(body) {
     ));
     return projeto;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

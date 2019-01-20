@@ -1,7 +1,5 @@
-const dotenv = require('dotenv');
-require('dotenv').config();
+import config from '../config';
 
-dotenv.load({ path: '../../.env' });
 const pg = require('pg');
 
 pg.defaults.ssl = false;
@@ -9,7 +7,7 @@ pg.defaults.ssl = false;
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.DEV_DATABASE_URL,
+    connection: config.dbUrl,
     migrations: {
       tableName: 'knex_migrations',
     },
@@ -20,7 +18,18 @@ module.exports = {
   },
   staging: {
     client: 'pg',
-    connection: process.env.PROD_DATABASE_URL,
+    connection: config.dbUrl,
+    migrations: {
+      tableName: 'knex_migrations',
+    },
+    pool: {
+      min: 0,
+      max: 15,
+    },
+  },
+  production: {
+    client: 'pg',
+    connection: config.dbUrl,
     migrations: {
       tableName: 'knex_migrations',
     },

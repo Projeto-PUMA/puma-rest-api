@@ -41,7 +41,6 @@ export async function create(body) {
     await grantsPapel(usuario.id, 'USUARIO');
     return usuario;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

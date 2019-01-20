@@ -20,7 +20,6 @@ export default (route) => {
   route
     .route('/autentica/reenvioEmail/')
     .post(async (req, res) => {
-      console.log(req.body.email)
       const response = await enviaEmailConfirmacao(req.body.email);
       res.status(response.statusCode);
       res.json(response.data);

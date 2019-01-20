@@ -3,7 +3,6 @@ import Noticia from './Noticia';
 export async function getAll(req) {
   try {
     const { limit, idNoticiaCategoria } = req.query;
-    console.log(req.query);
     const noticia = await Noticia
       .query()
       .skipUndefined()
@@ -31,7 +30,6 @@ export async function create(body) {
     const noticia = Noticia.query().insert(body);
     return noticia;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }

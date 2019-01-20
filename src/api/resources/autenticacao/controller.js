@@ -3,6 +3,7 @@ import HttpStatus from 'http-status';
 import { errorResponse, defaultResponse } from '../../../util/response';
 import * as usuarioDal from '../usuario/dal';
 import emailConfirmacao from '../../mailing/email-confirm';
+import config from '../../../config';
 
 require('dotenv').config();
 
@@ -29,7 +30,6 @@ export async function generatePayload(body) {
 async function signToken(body, key, expiresIn) {
   try {
     const payload = await generatePayload(body);
-    await console.log(payload);
     const token = await jwt.sign(payload, key, { expiresIn });
     return { token: `Bearer ${token}` };
   } catch (err) {
@@ -39,8 +39,8 @@ async function signToken(body, key, expiresIn) {
 
 export async function createToken(
   body,
-  secretOrKey = process.env.JWT_SECRET_OR_KEY,
-  expiresIn = process.env.JWT_EXPIRES_IN,
+  secretOrKey = config.usuarioJwtSecretOrKey,
+  expiresIn = config.usuarioExpiresIn,
 ) {
   try {
     const newToken = await signToken(
@@ -58,7 +58,7 @@ export async function autenticacao(req, res, next) {
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(' ')[1];
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_OR_KEY);
+      const decoded = jwt.verify(token, config.usuarioJwtSecretOrKey);
       req.info = decoded;
       next();
     } catch (err) {
@@ -86,7 +86,7 @@ export async function autenticacao(req, res, next) {
 
 export async function confirmEmail(req) {
   try {
-    const usuario = await jwt.verify(req.params.token, process.env.EMAIL_SECRET_OR_KEY);
+    const usuario = await jwt.verify(req.params.token, config.emailJwtSecretOrKey);
     await usuarioDal.patch(usuario.id, { ativo: true });
     return defaultResponse('Usuario confirmado!');
   } catch (e) {
@@ -99,8 +99,8 @@ export async function createEmailToken(email) {
   try {
     const payload = { email };
     return jwt.sign(payload,
-      process.env.EMAIL_SECRET_OR_KEY,
-      { expiresIn: process.env.EMAIL_EXPIRES_IN });
+      config.emailJwtSecretOrKey,
+      { expiresIn: config.emailExpiresIn });
   } catch (err) {
     throw err;
   }
@@ -109,7 +109,6 @@ export async function createEmailToken(email) {
 export async function enviaEmailConfirmacao(email) {
   try {
     const token = await createEmailToken(email);
-    await console.log(token);
     await emailConfirmacao(email, token);
     return defaultResponse();
   } catch (err) {
