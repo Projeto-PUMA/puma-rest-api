@@ -13,6 +13,10 @@
     "knex:stag": "NODE_ENV=staging babel-node node_modules/.bin/knex --knexfile src/database/knexfile.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
     "accesscontrol": "^2.2.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
@@ -33,10 +37,6 @@
     "pg": "^7.8.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
     "eslint": "^5.12.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
