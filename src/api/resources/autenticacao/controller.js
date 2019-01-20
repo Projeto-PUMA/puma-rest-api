@@ -84,12 +84,16 @@ export async function autenticacao(req, res, next) {
   }
 }
 
+
+
 export async function confirmEmail(req) {
   try {
     const usuario = await jwt.verify(req.params.token, config.emailJwtSecretOrKey);
-    await usuarioDal.patch(usuario.id, { ativo: true });
+    const uid = await usuarioDal.findByEmail(usuario.email);
+    await usuarioDal.patch(uid.id, { ativo: true });
     return defaultResponse('Usuario confirmado!');
   } catch (e) {
+    console.log(e.message);
     const response = errorResponse('Invalid Token', HttpStatus.UNAUTHORIZED);
     return response;
   }

@@ -72,10 +72,26 @@ export async function findByCpf(cpf) {
   }
 }
 
+export async function findByEmail(email) {
+  try {
+    const usuario = await Usuario.query()
+      .first()
+      .eager('papel')
+      .where('email', email);
+    if (usuario === undefined) {
+      throw new Error('Not Found');
+    }
+    return usuario;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function patch(id, body) {
   try {
     const data = body;
     data.id = id;
+    console.log(data);
     const usuario = await Usuario
       .query()
       .upsertGraph(data, { noDelete: true, relate: true });
