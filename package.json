@@ -7,9 +7,10 @@
     "build-babel": "babel -d ./build ./src -s",
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && NODE_ENV=development node ./build/index.js",
-    "lint": "eslint '**/*.js'",
-    "lint:fix": "npm run clean && eslint '**/*.js' --fix"
+    "start": "npm run build && npm run knex:dev migrate:latest && NODE_ENV=development node ./build/index.js",
+    "lint:fix": "npm run clean && eslint '**/*.js' --fix",
+    "knex:dev": "NODE_ENV=development babel-node node_modules/.bin/knex --knexfile src/database/knexfile.js",
+    "knex:stag": "NODE_ENV=staging babel-node node_modules/.bin/knex --knexfile src/database/knexfile.js"
   },
   "dependencies": {
     "accesscontrol": "^2.2.1",
