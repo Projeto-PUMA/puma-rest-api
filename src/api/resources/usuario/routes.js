@@ -1,5 +1,5 @@
 import * as usuarioController from './controller';
-import { authentication } from '../autenticacao/controller';
+import { autenticacao } from '../autenticacao/controller';
 import autorizacao from '../autorizacao/controller';
 
 export default (route) => {
@@ -20,8 +20,7 @@ export default (route) => {
 
   route
     .route('/usuario/:id')
-    .get(autorizacao("turma", "read"), async (req, res, next) => {
-      console.log(req.level)
+    .get(async (req, res, next) => {
       const response = await usuarioController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
@@ -30,14 +29,14 @@ export default (route) => {
   route
     .route('/usuario/:id')
     .patch(async (req, res) => {
-      const response = await usuarioController.patch(req.params.id, req.body);
+      const response = await usuarioController.patch(Number(req.params.id), req.body, req.info);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
     .route('/usuario/:id')
-    .delete(async (req, res) => {
+    .delete(autenticacao, autorizacao('usuario', 'delete'), async (req, res) => {
       const response = await usuarioController.deleteById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);

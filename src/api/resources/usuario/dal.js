@@ -1,5 +1,6 @@
 import { transaction } from 'objection';
 import Usuario from './Usuario';
+import Papel from './Papel';
 
 export async function getAll() {
   try {
@@ -17,16 +18,27 @@ export async function getAll() {
   }
 }
 
+export async function grantsPapel(id, nomePapel) {
+  try {
+    const papel = await Papel.query().select().first().where('nome', nomePapel);
+    await transaction(Usuario.knex(), trx => (
+      Usuario.query(trx)
+        .allowUpsert('[papel]')
+        .upsertGraph({ id, papel: { id: papel.id } }, { noDelete: true, relate: true })
+    ));
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function create(body) {
   try {
-    const options = {
-      relate: true, insertMissing: true,
-    };
     const usuario = await transaction(Usuario.knex(), trx => (
       Usuario.query(trx)
         .allowInsert('[endereco, profissao, telefone]')
-        .insertGraph(body, options)
+        .insertGraph(body, { relate: true, insertMissing: true })
     ));
+    await grantsPapel(usuario.id, 'USUARIO');
     return usuario;
   } catch (error) {
     console.log(error);
@@ -61,20 +73,13 @@ export async function findByCpf(cpf) {
   }
 }
 
-
 export async function patch(id, body) {
   try {
-    const options = {
-      noDelete: true, relate: true,
-    };
-
     const data = body;
     data.id = id;
-    console.log(data);
-
-    const usuario = await Usuario.query()
-      .upsertGraph(data, options);
-
+    const usuario = await Usuario
+      .query()
+      .upsertGraph(data, { noDelete: true, relate: true });
     if (usuario === undefined) {
       throw new Error('Not Found');
     }

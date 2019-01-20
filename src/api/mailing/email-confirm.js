@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import { createEmailToken } from '../resources/autenticacao/controller';
 
 require('dotenv').config();
 
@@ -13,24 +12,22 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export default async function sendConfirmationMail(usuario) {
+export default async function emailConfirmacao(email, token) {
   try {
-    const token = await createEmailToken(usuario);
     const mailOptions = {
       from: 'Plataforma Unificada de Metodologia Ativa', // sender address
-      to: `${usuario.email}`, // list of receivers
+      to: `${email}`, // list of receivers
       subject: 'Confirme seu e-mail', // Subject line
-      html: `<b>Olá! ${usuario.nome}</b>
+      html: `<b>Olá! </b>
             <p> 
             Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
             <p>
             Para ativar sua conta, clique no link abaixo
             <p>
-            http://localhost:3000/api/confirmacaoUsuario/${token}`, // html body
+            http://localhost:3000/api/autentica/confirmacaoUsuario/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
-    console.log(err);
-    throw new Error('Somethig went wrong');
+    throw err;
   }
 }
