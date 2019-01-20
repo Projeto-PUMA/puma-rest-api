@@ -9,7 +9,18 @@ pg.defaults.ssl = false;
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: process.env.DEV_DATABASE_URL,
+    migrations: {
+      tableName: 'knex_migrations',
+    },
+    pool: {
+      min: 0,
+      max: 15,
+    },
+  },
+  staging: {
+    client: 'pg',
+    connection: process.env.PROD_DATABASE_URL,
     migrations: {
       tableName: 'knex_migrations',
     },
