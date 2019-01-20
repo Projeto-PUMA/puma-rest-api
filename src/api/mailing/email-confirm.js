@@ -23,10 +23,11 @@ export default async function emailConfirmacao(email, token) {
             <p>
             Para ativar sua conta, clique no link abaixo
             <p>
-            http://localhost:3000/api/autentica/confirmacaoUsuario/${token}`, // html body
+            ${config.host}/api/autentica/confirmacaoUsuario/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
+    console.log(err.message);
     throw err;
   }
 }

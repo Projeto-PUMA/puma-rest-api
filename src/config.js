@@ -12,6 +12,7 @@ const config = {
   emailExpiresIn: process.env.EMAIL_EXPIRES_IN,
   emailUsr: process.env.EMAIL_USR,
   emailPass: process.env.EMAIL_PASS,
+  host: process.env.HOST
 };
 
 export default config;
