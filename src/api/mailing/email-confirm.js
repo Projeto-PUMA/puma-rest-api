@@ -31,3 +31,24 @@ export default async function emailConfirmacao(email, token) {
     throw err;
   }
 }
+
+// export async function projetoCriado(email, token) {
+//   try {
+//       const mailOptions = {
+//           from: 'Plataforma Unificada de Metodologia Ativa', // sender address
+//           to: `${email}`, // list of receivers
+//           subject: 'Confirme seu e-mail', // Subject line
+//           html: `<b>Olá! </b>
+//           <p> 
+//           Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
+//           <p>
+//           Para ativar sua conta, clique no link abaixo
+//           <p>
+//           ${config.host}/api/autentica/confirmacaoUsuario/${token}`, // html body
+//       };
+//       await transporter.sendMail(mailOptions);
+//   } catch (err) {
+//       console.log(err.message);
+//       throw err;
+//   }
+// }

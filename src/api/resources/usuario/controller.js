@@ -15,8 +15,7 @@ export async function getAll() {
 export async function create(body) {
   try {
     const response = await usuarioDal.create(body);
-    console.log(response)
-    await autenticacaoController.enviaEmailConfirmacao(response.email);
+    autenticacaoController.enviaEmailConfirmacao(response.email);
     return defaultResponse(response);
   } catch (err) {
     return errorResponse(err.message);
