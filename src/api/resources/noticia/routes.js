@@ -11,32 +11,28 @@ export default (route) => {
     });
 
   route
-    .route(autenticacao, autorizacao('noticia', 'create'), '/noticia')
-    .post(async (req, res) => {
-      const response = await noticiaController.create(req.body);
-      res.status(response.statusCode);
-      res.json(response.data);
-    });
-
-  route
-    .route('/noticia/:id')
-    .get(async (req, res) => {
+    .get('/noticia/:id', async (req, res) => {
       const response = await noticiaController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route(autenticacao, '/noticia/:id')
-    .patch(async (req, res) => {
+    .post('/noticia', autenticacao, autorizacao('noticia', 'create'), async (req, res) => {
+      const response = await noticiaController.create(req.body);
+      res.status(response.statusCode);
+      res.json(response.data);
+    });
+
+  route
+    .patch('/noticia/:id', autenticacao, autorizacao('noticia', 'update'), async (req, res) => {
       const response = await noticiaController.patch(req.params.id, req.body);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route(autenticacao, '/noticia/:id')
-    .delete(async (req, res) => {
+    .delete('/noticia/:id', autenticacao, autorizacao('noticia', 'delete'), async (req, res) => {
       const response = await noticiaController.deleteById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);

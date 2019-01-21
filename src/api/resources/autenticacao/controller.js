@@ -84,8 +84,6 @@ export async function autenticacao(req, res, next) {
   }
 }
 
-
-
 export async function confirmEmail(req) {
   try {
     const usuario = await jwt.verify(req.params.token, config.emailJwtSecretOrKey);

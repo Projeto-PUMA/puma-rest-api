@@ -4,7 +4,7 @@ import autorizacao from '../autorizacao/controller';
 
 export default (route) => {
   route
-    .get('/usuario', async (req, res, next) => {
+    .get('/usuario', autenticacao, autorizacao('usuario', 'read'), async (req, res, next) => {
       const response = await usuarioController.getAll();
       res.status(response.statusCode)
         .json(response.data);
@@ -20,14 +20,14 @@ export default (route) => {
 
   route
     .route('/usuario/:id')
-    .get(async (req, res, next) => {
+    .get(autenticacao, autorizacao('usuario', 'read'), async (req, res, next) => {
       const response = await usuarioController.findById(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
     });
 
   route
-    .route('/usuario/:id')
+    .route(autenticacao, autorizacao('usuario', 'update'), '/usuario/:id')
     .patch(async (req, res) => {
       const response = await usuarioController.patch(Number(req.params.id), req.body, req.info);
       res.status(response.statusCode)
