@@ -4,6 +4,7 @@ const pg = require('pg');
 
 pg.defaults.ssl = false;
 
+console.log(config.dbUrl)
 module.exports = {
   development: {
     client: 'pg',

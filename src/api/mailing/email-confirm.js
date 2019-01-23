@@ -21,9 +21,9 @@ export default async function emailConfirmacao(email, token) {
             <p> 
             Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
             <p>
-            Para ativar sua conta, clique no link abaixo
-            <p>
-            ${config.host}/api/autentica/confirmacaoUsuario/${token}`, // html body
+            Para ativar sua conta, clique
+            <a href="${config.host}/api/auth/confirmacaoUsuario/${token}"> aqui </a>
+            ou copie e cole no seu navegador o link a seguir: ${config.host}/api/auth/confirmacaoUsuario/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
