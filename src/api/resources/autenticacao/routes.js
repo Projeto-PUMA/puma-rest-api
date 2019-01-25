@@ -10,7 +10,7 @@ export default (route) => {
     });
 
   route
-    .route('/auth/confirmacaoUsuario/:token')
+    .route('/auth/tokenConfirmacao/:token')
     .get(async (req, res) => {
       const response = await confirmEmail(req);
       res.status(response.statusCode);
@@ -18,7 +18,7 @@ export default (route) => {
     });
 
   route
-    .route('/auth/reenvioEmail/')
+    .route('/auth/tokenConfirmacao/')
     .post(async (req, res) => {
       const response = await enviaEmailConfirmacao(req.body.email);
       res.status(response.statusCode);

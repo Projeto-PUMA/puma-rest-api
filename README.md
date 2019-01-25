@@ -179,27 +179,50 @@ Exemplo de url com parâmetros:
 
 Retorno: `HTTP Status 200`.
 
-#### `POST /login`
+#### `POST /auth/login`
 
 | Parametro | Tipo   | Descricao        | Obrigatorio? |
 | --------- | ------ | ---------------- | ------------ |
-| cpf       | string | Email do usuário | sim          |
+| cpf       | string | cpf do usuário   | sim          |
 | senha     | string | Senha do usuário | sim          |
 
 - Exemplo de JSON: 
   
         {
-            "email": "email@email",
-            "sennha": "pwd",
+            "cpf": "12312321",
+            "senha": "pwd",
         }
 
+Retorno: `HTTP Status 200` e o token JWT.
 
-Retorno: `HTTP Status 200`.
+#### `GET /auth/tokenConfirmacao/:token`
 
-#### `GET /confirmacaoUsuario/:token`
+Serve para confirmar o cadastro do usuário no PUMA. Quando o usuário se cadastra, é enviado um link para o e-mail dele. Ao acessar o link e validar o token, o usuário tem seu acesso liberado no sistema.
 
 | Parametro | Tipo   | Descricao                                | Obrigatorio? |
 | --------- | ------ | ---------------------------------------- | ------------ |
 | token     | string | Token na url enviada no email do usuário | sim          |
 
 Retorno: `HTTP Status 200`.
+
+#### `POST /auth/tokenConfirmacao/`
+
+Serve para reenviar o token de confirmação 
+
+| Parametro | Tipo   | Descricao        | Obrigatorio? |
+| --------- | ------ | ---------------- | ------------ |
+| email     | string | Email do usuário | sim          |
+
+- Exemplo de JSON: 
+  
+        {
+            "email":"email@email.com"
+        }
+Retorno: `HTTP Status 200` e o email reenviado ao email solicitante.
+
+### `/profissao/*`
+É o endpoint relacionado à leitura das profissões cadastradas.
+
+#### `GET /profissao`
+
+Retorno: `HTTP Status 200` e a lista de profissões cadastradas.
