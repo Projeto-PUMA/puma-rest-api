@@ -41,4 +41,12 @@ export default (route) => {
       res.status(response.statusCode)
         .json(response.data);
     });
+
+  route
+    .route('/profissao')
+    .get(async (req, res) => {
+      const response = await usuarioController.findProfissao();
+      res.status(response.statusCode)
+        .json(response.data);
+    });
 };

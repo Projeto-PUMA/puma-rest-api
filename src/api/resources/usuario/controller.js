@@ -63,3 +63,13 @@ export async function deleteById(id) {
     return errorResponse(err.message);
   }
 }
+
+export async function findProfissao() {
+  try {
+    const response = await usuarioDal.findProfissao();
+    return defaultResponse(response);
+  } catch (err) {
+    return errorResponse(err.message);
+  }
+}
+

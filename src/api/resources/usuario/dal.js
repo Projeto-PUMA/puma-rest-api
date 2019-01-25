@@ -1,6 +1,7 @@
 import { transaction } from 'objection';
 import Usuario from './Usuario';
 import Papel from './Papel';
+import Profissao from './Profissao';
 
 export async function getAll() {
   try {
@@ -108,6 +109,15 @@ export async function deleteById(id) {
   try {
     const usuario = await Usuario.query().deleteById(id);
     return usuario;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function findProfissao() {
+  try {
+    const profissao = await Profissao.query().select('id', 'termo');
+    return profissao;
   } catch (error) {
     throw error;
   }
