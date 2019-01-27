@@ -12,7 +12,7 @@ export async function generatePayload(body) {
     const usuario = await usuarioDal.findByCpf(body.cpf);
     const passwordValid = await usuario.verifyPassword(body.senha);
     if (!passwordValid || !usuario.ativo) {
-      throw new Error('Invalid');
+      throw new Error('Invalid user');
     }
 
     const payload = await {
@@ -50,7 +50,7 @@ export async function createToken(
     );
     return defaultResponse(newToken);
   } catch (err) {
-    return errorResponse(err);
+    return errorResponse(err.message);
   }
 }
 
