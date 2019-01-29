@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import path from 'path'
 
 class Psp extends Model {
   static get tableName() {
@@ -25,6 +26,14 @@ class Psp extends Model {
         join: {
           from: 'psp.id',
           to: 'psp.psp_pai_id',
+        },
+      },
+      projeto: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, '../projeto/Projeto'),
+        join: {
+          from: 'psp.id',
+          to: 'projeto.psp_id',
         },
       },
     };

@@ -1,9 +1,11 @@
 import { createToken, confirmEmail, enviaEmailConfirmacao } from './controller';
+import findRolesList from '../autorizacao/dal'
 
 export default (route) => {
   route
     .route('/auth/login')
     .post(async (req, res) => {
+      console.log('Criando token')
       const response = await createToken(req.body);
       res.status(response.statusCode);
       res.json(response.data);

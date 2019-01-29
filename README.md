@@ -35,6 +35,7 @@
     - [Categoria dos Endereços](#categoria-dos-endere%C3%A7os)
     - [Status dos Projetos](#status-dos-projetos)
     - [PSP](#psp)
+    - [Papéis, Ações e Recursos](#pap%C3%A9is-a%C3%A7%C3%B5es-e-recursos)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -456,3 +457,58 @@ Ao cadastrar um novo projeto, não é necessário enviar o id do psp_pai, basta 
 | 26  | 6       | Viabilidade Econômica                                                  | Viabilidade Econômica                                                  |
 | 27  | 6       | Desdobramento de Metas                                                 | Desdobramento de Metas                                                 |
 | 28  | 6       | Outras                                                                 | Outras                                                                 |
+
+### Papéis, Ações e Recursos
+
+(acao):any = pode executar a ação em qualquer registro.
+
+(acao):own = pode executar a ação em registros que ele seja dono/responsável. 
+
+| papel       | ação       | recurso |
+| ----------- | ---------- | ------- |
+| ADMIN       | read:any   | usuario |
+| ADMIN       | update:any | usuario |
+| ADMIN       | delete:any | usuario |
+| ADMIN       | create:any | projeto |
+| ADMIN       | read:any   | projeto |
+| ADMIN       | update:any | projeto |
+| ADMIN       | delete:any | projeto |
+| ADMIN       | create:any | noticia |
+| ADMIN       | update:any | noticia |
+| ADMIN       | delete:any | noticia |
+| COORDENADOR | read:any   | usuario |
+| COORDENADOR | update:own | usuario |
+| COORDENADOR | create:any | projeto |
+| COORDENADOR | read:any   | projeto |
+| COORDENADOR | update:any | projeto |
+| COORDENADOR | delete:any | projeto |
+| COORDENADOR | create:any | noticia |
+| COORDENADOR | update:own | noticia |
+| COORDENADOR | delete:own | noticia |
+| PROFESSOR   | read:any   | usuario |
+| PROFESSOR   | update:own | usuario |
+| PROFESSOR   | delete:own | usuario |
+| PROFESSOR   | create:any | projeto |
+| PROFESSOR   | read:any   | projeto |
+| ALUNO       | read:any   | usuario |
+| ALUNO       | update:own | usuario |
+| ALUNO       | delete:own | usuario |
+| ALUNO       | create:any | projeto |
+| ALUNO       | read:any   | projeto |
+| MONITOR     | read:any   | usuario |
+| MONITOR     | update:own | usuario |
+| MONITOR     | delete:own | usuario |
+| MONITOR     | create:any | projeto |
+| MONITOR     | read:any   | projeto |
+| MONITOR     | read:any   | noticia |
+| SECRETARIA  | read:any   | usuario |
+| SECRETARIA  | update:own | usuario |
+| SECRETARIA  | delete:own | usuario |
+| SECRETARIA  | create:any | projeto |
+| SECRETARIA  | read:any   | projeto |
+| SECRETARIA  | read:any   | noticia |
+| USUARIO     | read:any   | usuario |
+| USUARIO     | update:own | usuario |
+| USUARIO     | delete:own | usuario |
+| USUARIO     | create:any | projeto |
+| USUARIO     | read:own   | projeto |
