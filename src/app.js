@@ -13,6 +13,9 @@ import config from './config';
 Model.knex(knex);
 
 const app = express();
+var cors = require('cors');
+
+app.use(cors());
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.set('port', config.port || 3000);
