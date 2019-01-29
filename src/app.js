@@ -15,6 +15,14 @@ Model.knex(knex);
 const app = express();
 var cors = require('cors');
 
+app.all('*', function(req, res, next) {
+  var origin = req.get('origin'); 
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 app.use(cors());
 app.use(morgan('combined'));
 app.use(bodyParser.json());
