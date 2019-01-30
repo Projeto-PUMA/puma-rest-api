@@ -1,7 +1,7 @@
 
 exports.seed = knex => (
   knex('noticia').del()
-    .then(() => (knex('noticia').insert(
+    .then(() => (knex('noticia').insert([
       {
         titulo: 'Titulo da noticia',
         subtitulo: 'problematica da noticia',
@@ -49,6 +49,5 @@ exports.seed = knex => (
         noticia_categoria_id: 3,
         texto: 'Texto da noticia',
         usuario_id: 1,
-      },
-    )))
+      }])))
 );
