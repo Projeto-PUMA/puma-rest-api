@@ -208,6 +208,7 @@ São os endpoints relacionados ao CRUD de notícia.
 | titulo               | string  | Titulo da notícia                                        | sim          |
 | subtitulo            | string  | Subtitulo da notícia                                     | sim          |
 | texto                | string  | Texto da notícia                                         | sim          |
+| url_thumbnail        | string  | Url da imagem do card da noticia na home                 | sim          |
 | usuario_id           | integer | ID do usuario autor da notícia                           | sim          |
 | noticia_categoria_id | integer | Destaque (id=1), Normal (id=2), Melhores Projetos (id=3) | sim          |
 
@@ -252,6 +253,7 @@ Exemplo de url com parâmetros:
 | titulo               | string  | Titulo da notícia                                        | nao*         |
 | subtitulo            | string  | Subtitulo da notícia                                     | nao*         |
 | texto                | string  | Texto da notícia                                         | nao*         |
+| url_thumbnail        | string  | Url da imagem do card da noticia na home                 | nao*         |
 | usuario_id           | integer | ID do usuario autor da notícia                           | nao*         |
 | noticia_categoria_id | integer | Destaque (id=1), Normal (id=2), Melhores Projetos (id=3) | nao*         |
 
