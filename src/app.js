@@ -1,4 +1,4 @@
-
+import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { Model } from 'objection';
@@ -13,13 +13,12 @@ import config from './config';
 Model.knex(knex);
 
 const app = express();
-const cors = require('cors');
 
-var allowCrossDomain = function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // allow requests from any other server
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); // allow these verbs
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
-}
+const allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*'); // allow requests from any other server
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH'); // allow these verbs
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cache-Control');
+};
 
 app.use(allowCrossDomain);
 app.use(cors());

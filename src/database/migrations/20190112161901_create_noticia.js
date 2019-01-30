@@ -11,6 +11,9 @@ exports.up = (knex, Promise) => Promise.all([
       .string('url_chamada')
       .nullable();
     table
+      .string('titulo')
+      .notNullable();
+    table
       .string('subtitulo')
       .notNullable();
     table
