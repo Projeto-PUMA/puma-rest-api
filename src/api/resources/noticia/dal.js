@@ -6,9 +6,12 @@ export async function getAll(req) {
     const noticia = await Noticia
       .query()
       .skipUndefined()
-      .eager('[usuario(selectNomeAndId)]', {
+      .eager('[usuario(selectNomeAndId), categoria(selectCategoriaAndId)]', {
         selectNomeAndId: (builder) => {
           builder.select('nome', 'id');
+        },
+        selectCategoriaAndId: (builder) => {
+          builder.select('categoria', 'id');
         },
       })
       .where('noticia_categoria_id', '=', idNoticiaCategoria)
