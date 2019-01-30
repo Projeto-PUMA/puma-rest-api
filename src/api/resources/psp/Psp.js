@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import path from 'path'
+import path from 'path';
 
 class Psp extends Model {
   static get tableName() {

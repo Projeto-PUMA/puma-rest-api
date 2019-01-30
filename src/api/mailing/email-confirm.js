@@ -39,7 +39,7 @@ export default async function emailConfirmacao(email, token) {
 //           to: `${email}`, // list of receivers
 //           subject: 'Confirme seu e-mail', // Subject line
 //           html: `<b>Olá! </b>
-//           <p> 
+//           <p>
 //           Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
 //           <p>
 //           Para ativar sua conta, clique no link abaixo

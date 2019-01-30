@@ -7,7 +7,7 @@ export default async function findRolesList(roles) {
       .select('papel.nome as role', 'acao.nome as action', 'recurso.nome as resource')
       .joinRelation('[acao,  papel, recurso]')
       .whereInComposite('papel.nome', roles);
-    await console.log(permissoes)
+    await console.log(permissoes);
     return permissoes;
   } catch (error) {
     throw error;

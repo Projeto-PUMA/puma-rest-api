@@ -13,7 +13,7 @@ import config from './config';
 Model.knex(knex);
 
 const app = express();
-var cors = require('cors');
+const cors = require('cors');
 
 app.use(cors());
 app.use(morgan('combined'));

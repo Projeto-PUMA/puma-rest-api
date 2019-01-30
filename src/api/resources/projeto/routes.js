@@ -38,4 +38,3 @@ export default (route) => {
         .json(response.data);
     });
 };
-  
