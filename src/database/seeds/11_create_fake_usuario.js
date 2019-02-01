@@ -9,7 +9,6 @@ exports.seed = knex => (
   knex('usuario').del()
     .then(async () => (knex('usuario').insert([
       {
-        id: 1,
         nome: 'admin',
         email: 'admin@admin',
         senha: await genPass('admin'),
@@ -20,7 +19,6 @@ exports.seed = knex => (
         ativo: true,
       },
       {
-        id: 2,
         nome: 'usuario',
         email: 'usuario@usuario',
         senha: await genPass('usuario'),
@@ -31,7 +29,6 @@ exports.seed = knex => (
         ativo: true,
       },
       {
-        id: 3,
         nome: 'coordenador',
         email: 'coordenador@coordenador',
         senha: await genPass('coordenador'),

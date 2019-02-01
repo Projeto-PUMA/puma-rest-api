@@ -3,7 +3,6 @@ exports.seed = knex => (
   knex('endereco').del()
     .then(() => (knex('endereco').insert([
       {
-        id: 1,
         estado: 'DF',
         cidade: 'Brasilia',
         bairro: 'Ceilandia Oeste',
