@@ -7,6 +7,7 @@
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
     "start:dev": "NODE_ENV=development npm run knex migrate:latest && NODE_ENV=development npm run knex seed:run && NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start:dev-no-seed": "NODE_ENV=development npm run knex migrate:latest && NODE_ENV=development nodemon --exec babel-node src/index.js",
     "start": "npm run build && npm run knex migrate:latest && node ./build/index.js",
     "lint:fix": "npm run clean && eslint '**/*.js' --fix",
     "knex": "babel-node node_modules/.bin/knex --knexfile src/database/knexfile.js"
