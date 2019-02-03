@@ -37,9 +37,19 @@ export async function patch(id, body) {
     return errorResponse(err.message);
   }
 }
+
 export async function deleteById(id) {
   try {
     const response = await projetoDal.deleteById(id);
+    return defaultResponse(response);
+  } catch (err) {
+    return errorResponse(err.message);
+  }
+}
+
+export async function findByUsuario(id) {
+  try {
+    const response = await projetoDal.findByUsuario(id);
     return defaultResponse(response);
   } catch (err) {
     return errorResponse(err.message);

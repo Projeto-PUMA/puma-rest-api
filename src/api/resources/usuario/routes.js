@@ -1,4 +1,5 @@
 import * as usuarioController from './controller';
+import * as projetoController from '../projeto/controller';
 import { autenticacao } from '../autenticacao/controller';
 import autorizacao from '../autorizacao/controller';
 
@@ -22,6 +23,14 @@ export default (route) => {
     .route('/usuario/:id')
     .get(autenticacao, autorizacao('usuario', 'read'), async (req, res, next) => {
       const response = await usuarioController.findById(req.params.id);
+      res.status(response.statusCode)
+        .json(response.data);
+    });
+
+  route
+    .route('/usuario/:id/projeto')
+    .get(autenticacao, autorizacao('projeto', 'read'), async (req, res, next) => {
+      const response = await projetoController.findByUsuario(req.params.id);
       res.status(response.statusCode)
         .json(response.data);
     });

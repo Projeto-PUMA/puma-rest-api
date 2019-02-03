@@ -94,3 +94,25 @@ export async function deleteById(id) {
     throw error;
   }
 }
+
+export async function findByUsuario(id) {
+  try {
+    const projeto = await Projeto.query()
+      .skipUndefined()
+      .eager('[psp(selectNomeAndId).[pai(selectNomeAndId)], status(selectStatusAndId), empresa]', {
+        selectNomeAndId: (builder) => {
+          builder.select('nome', 'id');
+        },
+        selectStatusAndId: (builder) => {
+          builder.select('status', 'id');
+        },
+      })
+      .where('usuario_id', id);
+    if (projeto === undefined) {
+      throw new Error('Not Found');
+    }
+    return projeto;
+  } catch (error) {
+    throw error;
+  }
+}
