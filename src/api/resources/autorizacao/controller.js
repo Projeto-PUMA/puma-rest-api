@@ -41,9 +41,8 @@ export default function autorizacao(resource, action) {
         }
       }
       if (level === 'none') {
-        console.log('ixe')
         res.status(HttpStatus.FORBIDDEN)
-          .json(errorResponse("Forbidden", HttpStatus.FORBIDDEN));
+          .json(errorResponse('Forbidden', HttpStatus.FORBIDDEN));
         res.send();
       } else {
         req.info = { level, usuarioId: Number(usuarioId) };

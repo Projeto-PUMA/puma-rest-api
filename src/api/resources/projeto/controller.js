@@ -1,3 +1,4 @@
+import HttpStatus from 'http-status';
 import * as projetoDal from './dal';
 import { defaultResponse, errorResponse } from '../../../util/response';
 
@@ -32,16 +33,16 @@ export async function findById(id) {
 export async function patch(req) {
   try {
     if (req.info.level === 'own' && req.info.usuarioId === parseInt(req.params.id, 10)) {
-      console.log('blz')
       if (req.body.status_id) {
-        return errorResponse('Unauthorized')
+        return errorResponse('Unauthorized');
       }
       const response = await projetoDal.patch(req.params.id, req.body);
       return defaultResponse(response);
-    } else if (req.info.level === 'any') {
+    } if (req.info.level === 'any') {
       const response = await projetoDal.patch(req.params.id, req.body);
       return defaultResponse(response);
     }
+    return errorResponse('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
   } catch (err) {
     return errorResponse(err.message);
   }
