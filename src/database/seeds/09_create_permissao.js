@@ -233,5 +233,10 @@ exports.seed = knex => (
         acao_id: 4,
         papel_id: 7,
       },
+      {
+        recurso_id: 2,
+        acao_id: 6,
+        papel_id: 7,
+      },
     ])))
 );

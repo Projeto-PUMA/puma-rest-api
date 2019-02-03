@@ -29,14 +29,24 @@ export async function findById(id) {
   }
 }
 
-export async function patch(id, body) {
+export async function patch(req) {
   try {
-    const response = await projetoDal.patch(id, body);
-    return defaultResponse(response);
+    if (req.info.level === 'own' && req.info.usuarioId === parseInt(req.params.id, 10)) {
+      console.log('blz')
+      if (req.body.status_id) {
+        return errorResponse('Unauthorized')
+      }
+      const response = await projetoDal.patch(req.params.id, req.body);
+      return defaultResponse(response);
+    } else if (req.info.level === 'any') {
+      const response = await projetoDal.patch(req.params.id, req.body);
+      return defaultResponse(response);
+    }
   } catch (err) {
     return errorResponse(err.message);
   }
 }
+
 
 export async function deleteById(id) {
   try {

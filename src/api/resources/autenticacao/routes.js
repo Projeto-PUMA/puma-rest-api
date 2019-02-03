@@ -1,5 +1,4 @@
 import { createToken, confirmEmail, enviaEmailConfirmacao } from './controller';
-import findRolesList from '../autorizacao/dal';
 
 export default (route) => {
   route

@@ -73,14 +73,19 @@ export async function patch(id, body) {
     };
     const data = body;
     data.id = id;
-    const projeto = await transaction(Projeto.knex(), trx => (
+    const projetoGraph = await transaction(Projeto.knex(), trx => (
       Projeto.query(trx)
         .upsertGraph(body, options)
     ));
-    if (projeto === undefined) {
+    if (projetoGraph === undefined) {
       throw new Error('Not Found');
     }
-    return projeto;
+    console.log(projetoGraph);
+
+    const projeto = projetoGraph;
+    projeto.id = parseInt(projetoGraph.id, 10);
+
+    return projetoGraph;
   } catch (error) {
     throw error;
   }

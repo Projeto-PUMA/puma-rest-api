@@ -26,7 +26,7 @@ export default (route) => {
 
   route
     .patch('/projeto/:id', autenticacao, autorizacao('projeto', 'update'), async (req, res) => {
-      const response = await projetoController.patch(req.params.id, req.body);
+      const response = await projetoController.patch(req);
       res.status(response.statusCode)
         .json(response.data);
     });

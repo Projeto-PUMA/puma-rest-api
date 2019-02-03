@@ -41,13 +41,18 @@ export default function autorizacao(resource, action) {
         }
       }
       if (level === 'none') {
-        res.send(errorResponse('Forbidden', HttpStatus.FORBIDDEN));
+        console.log('ixe')
+        res.status(HttpStatus.FORBIDDEN)
+          .json(errorResponse("Forbidden", HttpStatus.FORBIDDEN));
+        res.send();
       } else {
         req.info = { level, usuarioId: Number(usuarioId) };
         next();
       }
     } catch (err) {
-      res.send(errorResponse(err.messaage));
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json(errorResponse(err.messaage, HttpStatus.INTERNAL_SERVER_ERROR));
+      res.send();
     }
   };
 }
