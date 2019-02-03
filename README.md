@@ -279,6 +279,7 @@ São os endpoints relacionados ao CRUD de notícia.
 #### `POST /projeto`
 
 Parâmetros-base e PF:
+
 | Parametro    | Tipo    | Descricao                                | Obrigatorio? |
 | ------------ | ------- | ---------------------------------------- | ------------ |
 | usuario_id   | integer | ID do usuário autor do projeto           | sim          |
@@ -289,6 +290,7 @@ Parâmetros-base e PF:
 | anexo        | string  | URL do anexo do projeto                  | nao          |
 
 Parâmetros adicionais para PJ:
+
 | Parametro             | Tipo   | Descricao                                      | Obrigatorio? |
 | --------------------- | ------ | ---------------------------------------------- | ------------ |
 | cnpj                  | string | CNPJ da empresa                                | sim          |
