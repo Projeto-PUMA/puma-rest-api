@@ -33,7 +33,7 @@ export async function findById(id) {
 export async function patch(req) {
   try {
     if (req.info.level === 'own' && req.info.usuarioId === parseInt(req.params.id, 10)) {
-      if (req.body.status_id) {
+      if (req.body.status_id || req.body.resposta) {
         return errorResponse('Unauthorized');
       }
       const response = await projetoDal.patch(req.params.id, req.body);
