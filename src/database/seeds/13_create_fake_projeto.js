@@ -1,7 +1,7 @@
 
 exports.seed = knex => (
   knex('projeto').del()
-    .then(() => (knex('projeto').insert(
+    .then(() => (knex('projeto').insert([
       {
         titulo: 'Titulo do projeto 2',
         problematica: 'problematica do projeto 2',
@@ -25,6 +25,7 @@ exports.seed = knex => (
         anexo: 'asdasd.pdf',
         usuario_id: 2,
         psp_id: 21,
-      },
+      }
+    ]
     )))
 );
