@@ -23,7 +23,7 @@ export default async function emailConfirmacao(email, token) {
             <p>
             Para ativar sua conta, clique
             <a href="${config.host}/api/auth/confirmacaoUsuario/${token}"> aqui </a>
-            ou copie e cole no seu navegador o link a seguir: ${config.host}/api/auth/confirmacaoUsuario/${token}`, // html body
+            ou copie e cole no seu navegador o link a seguir: ${config.host}/api/auth/tokenConfirmacao/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
@@ -32,23 +32,21 @@ export default async function emailConfirmacao(email, token) {
   }
 }
 
-// export async function projetoCriado(email, token) {
-//   try {
-//       const mailOptions = {
-//           from: 'Plataforma Unificada de Metodologia Ativa', // sender address
-//           to: `${email}`, // list of receivers
-//           subject: 'Confirme seu e-mail', // Subject line
-//           html: `<b>Olá! </b>
-//           <p>
-//           Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
-//           <p>
-//           Para ativar sua conta, clique no link abaixo
-//           <p>
-//           ${config.host}/api/autentica/confirmacaoUsuario/${token}`, // html body
-//       };
-//       await transporter.sendMail(mailOptions);
-//   } catch (err) {
-//       console.log(err.message);
-//       throw err;
-//   }
-// }
+export async function alteracaoStatusProjeto(email, projeto) {
+  try {
+    const mailOptions = {
+      from: 'Plataforma Unificada de Metodologia Ativa', // sender address
+      to: `${email}`, // list of receivers
+      subject: 'Alteração no status do seu projeto', // Subject line
+      html: `<b>Olá! </b>
+          <p>
+          Olá, 
+          <p>
+          O seu projeto ${projeto.titulo} teve o status alterado para: ${projeto.status}. Para mais informações acesse sua conta na Plataforma.`, // html body
+    };
+    await transporter.sendMail(mailOptions);
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
+}
