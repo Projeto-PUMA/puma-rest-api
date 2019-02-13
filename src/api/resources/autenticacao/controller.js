@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import HttpStatus from 'http-status';
 import { errorResponse, defaultResponse } from '../../../util/response';
 import * as usuarioDal from '../usuario/dal';
-import emailConfirmacao from '../../mailing/email-confirm';
+import * as mailing from '../../mailing/mailing';
 import config from '../../../config';
 
 require('dotenv').config();
@@ -111,7 +111,7 @@ export async function createEmailToken(email) {
 export async function enviaEmailConfirmacao(email) {
   try {
     const token = await createEmailToken(email);
-    await emailConfirmacao(email, token);
+    await mailing.emailConfirmacao(email, token);
     return defaultResponse();
   } catch (err) {
     return (errorResponse(err.message));

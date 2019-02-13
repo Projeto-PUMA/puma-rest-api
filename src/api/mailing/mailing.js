@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export default async function emailConfirmacao(email, token) {
+export async function emailConfirmacao(email, token) {
   try {
     const mailOptions = {
       from: 'Plataforma Unificada de Metodologia Ativa', // sender address

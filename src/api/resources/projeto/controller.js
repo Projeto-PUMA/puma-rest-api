@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status';
 import * as projetoDal from './dal';
+import * as usuarioDal from '../usuario/dal';
 import { defaultResponse, errorResponse } from '../../../util/response';
 
 export async function getAll(req) {
@@ -32,11 +33,13 @@ export async function findById(id) {
 
 export async function patch(req) {
   try {
+    const projetoCandidato = await projetoDal.findById(req.params.id);
     if (req.info.level === 'own' && req.info.usuarioId === parseInt(req.params.id, 10)) {
-      if (req.body.status_id || req.body.resposta) {
+      if (req.body.status_id || req.body.resposta || projetoCandidato.status_id != 1) {
         return errorResponse('Unauthorized');
       }
       const response = await projetoDal.patch(req.params.id, req.body);
+      // await sendMailProjetoAlteracao(response, req.info.usuarioId);
       return defaultResponse(response);
     } if (req.info.level === 'any') {
       const response = await projetoDal.patch(req.params.id, req.body);
@@ -45,6 +48,15 @@ export async function patch(req) {
     return errorResponse('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
   } catch (err) {
     return errorResponse(err.message);
+  }
+}
+
+export async function sendMailProjetoAlteracao(projeto, usuario) {
+  try {
+    const usuario = await usuarioDal.findById(req.info.usuarioId);
+
+  } catch (error) {
+    throw error;
   }
 }
 

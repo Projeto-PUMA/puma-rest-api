@@ -9,6 +9,7 @@ function getAuthorizationParams(req) {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.decode(token);
+    console.log(decoded);
     return {
       usuarioId: parseInt(decoded.id, 10),
       roles: decoded.papel,
