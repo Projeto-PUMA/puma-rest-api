@@ -34,8 +34,12 @@ export async function findById(id) {
 export async function patch(req) {
   try {
     const projetoCandidato = await projetoDal.findById(req.params.id);
-    if (req.info.level === 'own' && req.info.usuarioId === parseInt(req.params.id, 10)) {
-      if (req.body.status_id || req.body.resposta || projetoCandidato.status_id != 1) {
+    console.log(req.info.level);
+    console.log(req.info.usuarioId);
+    console.log(projetoCandidato.usuario.id);
+    if (req.info.level === 'own') {
+      console.log('aki')
+      if (req.body.status_id || req.body.resposta || projetoCandidato.projeto_status_id != 1 || req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)) {
         return errorResponse('Unauthorized');
       }
       const response = await projetoDal.patch(req.params.id, req.body);
