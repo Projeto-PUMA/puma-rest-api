@@ -1,6 +1,7 @@
 import HttpStatus from 'http-status';
 import * as projetoDal from './dal';
 import * as usuarioDal from '../usuario/dal';
+import * as mailing from '../../mailing/mailing';
 import { defaultResponse, errorResponse } from '../../../util/response';
 
 export async function getAll(req) {
@@ -31,22 +32,32 @@ export async function findById(id) {
   }
 }
 
+export async function sendMailProjetoAlteracao(projeto) {
+  try {
+    await mailing.alteracaoStatusProjeto(projeto);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function patch(req) {
   try {
     const projetoCandidato = await projetoDal.findById(req.params.id);
+    let response;
     console.log(req.info.level);
     console.log(req.info.usuarioId);
     console.log(projetoCandidato.usuario.id);
     if (req.info.level === 'own') {
-      console.log('aki')
-      if (req.body.status_id || req.body.resposta || projetoCandidato.projeto_status_id != 1 || req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)) {
+      if (req.body.projeto_status_id || req.body.resposta || projetoCandidato.projeto_status_id !== 1 || req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)) {
         return errorResponse('Unauthorized');
       }
-      const response = await projetoDal.patch(req.params.id, req.body);
-      // await sendMailProjetoAlteracao(response, req.info.usuarioId);
+      response = await projetoDal.patch(req.params.id, req.body);
       return defaultResponse(response);
-    } if (req.info.level === 'any') {
-      const response = await projetoDal.patch(req.params.id, req.body);
+    } else if (req.info.level === 'any') {
+      response = await projetoDal.patch(req.params.id, req.body);
+      if (req.body.projeto_status_id) {
+        await sendMailProjetoAlteracao(response);
+      }
       return defaultResponse(response);
     }
     return errorResponse('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,16 +65,6 @@ export async function patch(req) {
     return errorResponse(err.message);
   }
 }
-
-export async function sendMailProjetoAlteracao(projeto, usuario) {
-  try {
-    const usuario = await usuarioDal.findById(req.info.usuarioId);
-
-  } catch (error) {
-    throw error;
-  }
-}
-
 
 export async function deleteById(id) {
   try {

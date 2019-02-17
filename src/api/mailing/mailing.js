@@ -32,17 +32,17 @@ export async function emailConfirmacao(email, token) {
   }
 }
 
-export async function alteracaoStatusProjeto(email, projeto) {
+export async function alteracaoStatusProjeto(projeto) {
   try {
     const mailOptions = {
       from: 'Plataforma Unificada de Metodologia Ativa', // sender address
-      to: `${email}`, // list of receivers
+      to: `${projeto.usuario.email}`, // list of receivers
       subject: 'Alteração no status do seu projeto', // Subject line
       html: `<b>Olá! </b>
           <p>
-          Olá, 
+          O seu projeto <b>${projeto.titulo}</b> teve o status alterado para: <b>${projeto.status.status}</b>. 
           <p>
-          O seu projeto ${projeto.titulo} teve o status alterado para: ${projeto.status}. Para mais informações acesse sua conta na Plataforma.`, // html body
+          Para mais informações, acesse sua conta no <a href="${config.host}"> PUMA </a>`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {

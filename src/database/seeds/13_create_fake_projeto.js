@@ -25,7 +25,6 @@ exports.seed = knex => (
         anexo: 'asdasd.pdf',
         usuario_id: 2,
         psp_id: 21,
-      }
-    ]
-    )))
+      },
+    ])))
 );

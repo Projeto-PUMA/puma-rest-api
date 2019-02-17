@@ -69,7 +69,7 @@ export async function findById(id) {
 export async function patch(id, body) {
   try {
     const options = {
-      relate: true, noDelete: true, insertMissing: true,
+      unrelate: true, noDelete: true, insertMissing: true,
     };
     const data = body;
     data.id = id;
@@ -80,12 +80,9 @@ export async function patch(id, body) {
     if (projetoGraph === undefined) {
       throw new Error('Not Found');
     }
-    console.log(projetoGraph);
 
-    const projeto = projetoGraph;
-    projeto.id = parseInt(projetoGraph.id, 10);
+    return findById(id);
 
-    return projetoGraph;
   } catch (error) {
     throw error;
   }
