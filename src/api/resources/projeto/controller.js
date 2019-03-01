@@ -1,6 +1,5 @@
 import HttpStatus from 'http-status';
 import * as projetoDal from './dal';
-import * as usuarioDal from '../usuario/dal';
 import * as mailing from '../../mailing/mailing';
 import { defaultResponse, errorResponse } from '../../../util/response';
 
@@ -44,16 +43,13 @@ export async function patch(req) {
   try {
     const projetoCandidato = await projetoDal.findById(req.params.id);
     let response;
-    console.log(req.info.level);
-    console.log(req.info.usuarioId);
-    console.log(projetoCandidato.usuario.id);
     if (req.info.level === 'own') {
       if (req.body.projeto_status_id || req.body.resposta || projetoCandidato.projeto_status_id !== 1 || req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)) {
         return errorResponse('Unauthorized');
       }
       response = await projetoDal.patch(req.params.id, req.body);
       return defaultResponse(response);
-    } else if (req.info.level === 'any') {
+    } if (req.info.level === 'any') {
       response = await projetoDal.patch(req.params.id, req.body);
       if (req.body.projeto_status_id) {
         await sendMailProjetoAlteracao(response);

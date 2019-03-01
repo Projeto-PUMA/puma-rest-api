@@ -5,7 +5,7 @@ exports.up = (knex, Promise) =>
     knex.schema
       .createTable("resultado", table => {
         table.increments("id").primary();
-        table.date("nota_final");
+        table.decimal("nota_final");
         table
           .integer("aluno_id")
           .references("aluno.id")

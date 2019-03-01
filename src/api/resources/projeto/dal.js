@@ -82,7 +82,6 @@ export async function patch(id, body) {
     }
 
     return findById(id);
-
   } catch (error) {
     throw error;
   }
