@@ -1,7 +1,7 @@
-import HttpStatus from 'http-status';
-import * as usuarioDal from './dal';
-import { defaultResponse, errorResponse } from '../../../util/response';
-import * as autenticacaoController from '../autenticacao/controller';
+import HttpStatus from "http-status";
+import * as usuarioDal from "./dal";
+import { defaultResponse, errorResponse } from "../../../util/response";
+import * as autenticacaoController from "../autenticacao/controller";
 
 export async function getAll() {
   try {
@@ -34,14 +34,14 @@ export async function findById(id) {
 export async function patch(id, body, info) {
   try {
     switch (info.level) {
-      case 'own': {
+      case "own": {
         if (id === info.usuarioId) {
           const response = await usuarioDal.patch(id, body);
           return defaultResponse(response);
         }
         break;
       }
-      case 'any': {
+      case "any": {
         const response = await usuarioDal.patch(id, body);
         return defaultResponse(response);
       }
@@ -49,7 +49,7 @@ export async function patch(id, body, info) {
         break;
       }
     }
-    return errorResponse('Unauthorized', HttpStatus.UNAUTHORIZED);
+    return errorResponse("Unauthorized", HttpStatus.UNAUTHORIZED);
   } catch (err) {
     return errorResponse(err.message);
   }

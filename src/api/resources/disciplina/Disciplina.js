@@ -3,7 +3,7 @@ import path from "path";
 
 class Disciplina extends Model {
   static get tableName() {
-    return "professor";
+    return "disciplina";
   }
 
   static get idColumn() {
@@ -18,6 +18,27 @@ class Disciplina extends Model {
         join: {
           from: "disciplina.id",
           to: "professor.disciplina_id"
+        }
+      },
+      psp: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: path.join(__dirname, "../psp/Psp"),
+        join: {
+          from: "disciplina.psp_id",
+          to: "psp.id"
+        }
+      },
+      competencia: {
+        relation: Model.ManyToManyRelation,
+        modelClass: path.join(__dirname, "../competencia/Competencia"),
+        join: {
+          from: "disciplina.id",
+          through: {
+            from: "disciplina_competencia.disciplina_id",
+            to: "disciplina_competencia.competencia_id",
+            extra: ["peso"]
+          },
+          to: "competencia.id"
         }
       }
     };
