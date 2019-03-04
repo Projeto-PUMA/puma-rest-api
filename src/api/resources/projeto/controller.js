@@ -1,7 +1,7 @@
-import HttpStatus from 'http-status';
-import * as projetoDal from './dal';
-import * as mailing from '../../mailing/mailing';
-import { defaultResponse, errorResponse } from '../../../util/response';
+import HttpStatus from "http-status";
+import * as projetoDal from "./dal";
+import * as mailing from "../../mailing/mailing";
+import { defaultResponse, errorResponse } from "../../../util/response";
 
 export async function getAll(req) {
   try {
@@ -43,20 +43,29 @@ export async function patch(req) {
   try {
     const projetoCandidato = await projetoDal.findById(req.params.id);
     let response;
-    if (req.info.level === 'own') {
-      if (req.body.projeto_status_id || req.body.resposta || projetoCandidato.projeto_status_id !== 1 || req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)) {
-        return errorResponse('Unauthorized');
+    if (req.info.level === "own") {
+      if (
+        req.body.projeto_status_id ||
+        req.body.resposta ||
+        projetoCandidato.projeto_status_id !== 1 ||
+        req.info.usuarioId !== parseInt(projetoCandidato.usuario.id, 10)
+      ) {
+        return errorResponse("Unauthorized");
       }
       response = await projetoDal.patch(req.params.id, req.body);
       return defaultResponse(response);
-    } if (req.info.level === 'any') {
+    }
+    if (req.info.level === "any") {
       response = await projetoDal.patch(req.params.id, req.body);
       if (req.body.projeto_status_id) {
         await sendMailProjetoAlteracao(response);
       }
       return defaultResponse(response);
     }
-    return errorResponse('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+    return errorResponse(
+      "Internal Server Error",
+      HttpStatus.INTERNAL_SERVER_ERROR
+    );
   } catch (err) {
     return errorResponse(err.message);
   }
