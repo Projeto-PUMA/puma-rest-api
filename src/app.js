@@ -11,6 +11,7 @@ import projetoRoutes from "./api/resources/projeto/routes";
 import pspRoutes from "./api/resources/psp/routes";
 import disciplinaRoutes from "./api/resources/disciplina/routes";
 import competenciaRoutes from "./api/resources/competencia/routes";
+import professorRoutes from "./api/resources/professor/routes";
 import config from "./config";
 
 Model.knex(knex);
@@ -32,5 +33,6 @@ projetoRoutes(router);
 pspRoutes(router);
 disciplinaRoutes(router);
 competenciaRoutes(router);
+professorRoutes(router);
 
 export default app;

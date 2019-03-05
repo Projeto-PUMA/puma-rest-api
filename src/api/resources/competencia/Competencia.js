@@ -12,6 +12,22 @@ class Competencia extends Model {
 
   static get relationMappings() {
     return {
+      pai: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Competencia,
+        join: {
+          from: "competencia.competencia_pai_id",
+          to: "competencia.id"
+        }
+      },
+      filho: {
+        relation: Model.HasManyRelation,
+        modelClass: Competencia,
+        join: {
+          from: "competencia.id",
+          to: "competencia.competencia_pai_id"
+        }
+      },
       disciplina: {
         relation: Model.ManyToManyRelation,
         modelClass: path.join(__dirname, "../disciplina/Disciplina"),

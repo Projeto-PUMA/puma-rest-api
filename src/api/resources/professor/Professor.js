@@ -25,7 +25,7 @@ class Professor extends Model {
         modelClass: path.join(__dirname, "../disciplina/Disciplina"),
         join: {
           from: "professor.disciplina_id",
-          to: "usuario.id"
+          to: "disciplina.id"
         }
       }
     };

@@ -1,10 +1,10 @@
-import * as disciplinaDal from "./dal";
+import * as professorDal from "./dal";
 import * as response from "../../../util/response/format";
 
 export async function getAll(req) {
   try {
-    const disciplinas = await disciplinaDal.getAll(req);
-    return response.success(null, disciplinas);
+    const professores = await professorDal.getAll(req);
+    return response.success(null, professores);
   } catch (err) {
     if (err.message == "NotFoundError") {
       return response.notFound();
@@ -15,8 +15,8 @@ export async function getAll(req) {
 
 export async function create(body) {
   try {
-    const disciplina = await disciplinaDal.create(body);
-    return response.created(undefined, disciplina);
+    const dprofessor = await professorDal.create(body);
+    return response.created(undefined, dprofessor);
   } catch (err) {
     return response.badRequest(err.message);
   }
@@ -24,8 +24,8 @@ export async function create(body) {
 
 export async function findById(id) {
   try {
-    const disciplina = await disciplinaDal.findById(id);
-    return response.success(null, disciplina);
+    const dprofessor = await professorDal.findById(id);
+    return response.success(null, dprofessor);
   } catch (err) {
     if (err.message == "NotFoundError") {
       return response.notFound();
@@ -36,8 +36,8 @@ export async function findById(id) {
 
 export async function patch(id, body) {
   try {
-    const disciplina = await disciplinaDal.patch(id, body);
-    return response.success(null, disciplina);
+    const dprofessor = await professorDal.patch(id, body);
+    return response.success(null, dprofessor);
   } catch (err) {
     if (err.message == "NotFoundError") {
       return response.notFound();
@@ -48,8 +48,8 @@ export async function patch(id, body) {
 
 export async function deleteById(id) {
   try {
-    const disciplina = await disciplinaDal.deleteById(id);
-    return response.success(null, disciplina);
+    const dprofessor = await professorDal.deleteById(id);
+    return response.success(null, dprofessor);
   } catch (err) {
     if (err.message == "NotFoundError") {
       return response.notFound();

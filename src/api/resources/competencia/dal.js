@@ -11,7 +11,9 @@ export async function getAll() {
 
 export async function create(body) {
   try {
-    const competencia = await Competencia.query().insert(body);
+    const competencia = await Competencia.query()
+      .insert(body)
+      .returning("*");
     return competencia;
   } catch (error) {
     throw error;
@@ -40,7 +42,8 @@ export async function patch(id, body) {
     const competencia = await Competencia.query()
       .upsertGraph(data, options)
       .where("id", id)
-      .throwIfNotFound();
+      .returning("*");
+    
     return competencia;
   } catch (error) {
     throw error;
