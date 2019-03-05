@@ -1,4 +1,5 @@
 import { Model } from "objection";
+import path from "path";
 
 class Competencia extends Model {
   static get tableName() {

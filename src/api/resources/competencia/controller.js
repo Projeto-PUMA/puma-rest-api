@@ -1,54 +1,59 @@
 import * as competenciaDal from "./dal";
-import HttpStatus from "http-status";
-import { defaultResponse, errorResponse } from "../../../util/response";
+import * as response from "../../../util/response/format";
 
 export async function getAll(req) {
   try {
-    const res = await competenciaDal.getAll(req);
-    return defaultResponse(res);
+    const competencias = await competenciaDal.getAll(req);
+    return response.success(null, competencias);
   } catch (err) {
-    console.log("er");
-    if (err.message == "Not Found") {
-      return errorResponse(err.message, HttpStatus.NOT_FOUND);
+    if (err.message == "NotFoundError") {
+      return response.notFound();
     }
-    return errorResponse(err.message);
+    return response.internalError(err.message);
   }
 }
 
 export async function create(body) {
   try {
-    const response = await competenciaDal.create(body);
-    return defaultResponse(response);
+    const competencia = await competenciaDal.create(body);
+    return response.created(undefined, competencia);
   } catch (err) {
-    return errorResponse(err.message);
+    return response.badRequest(err.message);
   }
 }
 
 export async function findById(id) {
   try {
-    const response = await competenciaDal.findById(id);
-    return defaultResponse(response);
+    const competencia = await competenciaDal.findById(id);
+    return response.success(null, competencia);
   } catch (err) {
-    if (err.message == "Not Found") {
-      return errorResponse(err.message, HttpStatus.NOT_FOUND);
+    if (err.message == "NotFoundError") {
+      return response.notFound();
     }
-    return errorResponse(err.message);
+    return response.internalError(err.message);
   }
 }
 
 export async function patch(id, body) {
   try {
-    const response = await competenciaDal.patch(id, body);
-    return defaultResponse(response);
+    const competencia = await competenciaDal.patch(id, body);
+    return response.success(null, competencia);
   } catch (err) {
-    return errorResponse(err.message);
+    if (err.message == "NotFoundError") {
+      return response.notFound();
+    }
+    return response.internalError(err.message);
   }
 }
+
 export async function deleteById(id) {
   try {
-    const response = await competenciaDal.deleteById(id);
-    return defaultResponse(response);
+    const competencia = await competenciaDal.deleteById(id);
+    return response.success(null, competencia);
   } catch (err) {
-    return errorResponse(err.message);
+    if (err.message == "NotFoundError") {
+      return response.notFound();
+    }
+    return response.internalError(err.message);
   }
 }

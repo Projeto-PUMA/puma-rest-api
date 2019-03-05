@@ -1,0 +1,119 @@
+const checkStatusCode = require("./helpers");
+
+export function custom(statusCode, error, message, data) {
+  if (!statusCode) throw new Error("Status code is required");
+  if (isNaN(Number(statusCode))) throw new Error("Status code not a number");
+
+  this.statusCode = statusCode;
+  this.error = error || null;
+  this.data = data || null;
+  this.message = checkStatusCode(this.statusCode, message);
+
+  return this;
+}
+
+export function created(message, data) {
+  this.statusCode = 201;
+  this.error = false;
+  this.data = data || null;
+  this.message = message || "CREATED";
+  return this;
+}
+
+export function success(message, data) {
+  this.statusCode = 200;
+  this.error = false;
+  this.data = data || null;
+  this.message = message || "OK";
+  return this;
+}
+
+export function badRequest(message, data) {
+  this.statusCode = 400;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Bad Request";
+
+  return this;
+}
+
+export function unAuthorized(message, data) {
+  this.statusCode = 401;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Unauth­orized";
+
+  return this;
+}
+
+export function forbidden(message, data) {
+  this.statusCode = 403;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Forbidden";
+
+  return this;
+}
+
+export function notFound(message, data) {
+  this.statusCode = 404;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Not Found";
+
+  return this;
+}
+
+export function notAllowed(message, data) {
+  this.statusCode = 405;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Method Not Allowed";
+
+  return this;
+}
+
+export function requestTimeout(message, data) {
+  this.statusCode = 408;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Request Timeout";
+
+  return this;
+}
+
+export function internalError(message, data) {
+  this.statusCode = 500;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Internal Server Error";
+
+  return this;
+}
+
+export function badGateway(message, data) {
+  this.statusCode = 502;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Bad Gateway";
+
+  return this;
+}
+
+export function unavailable(message, data) {
+  this.statusCode = 503;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Service Unavai­lable";
+
+  return this;
+}
+
+export function gatewayTimeout(message, data) {
+  this.statusCode = 504;
+  this.error = true;
+  this.data = data || null;
+  this.message = message || "Gateway Timeout";
+
+  return this;
+}

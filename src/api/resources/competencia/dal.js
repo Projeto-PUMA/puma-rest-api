@@ -2,11 +2,7 @@ import Competencia from "./Competencia";
 
 export async function getAll() {
   try {
-    const competencia = await Competencia.query();
-    console.log(competencia.length);
-    if (!competencia || !competencia.length) {
-      throw new Error("Not Found");
-    }
+    const competencia = await Competencia.query().throwIfNotFound();
     return competencia;
   } catch (error) {
     throw error;
@@ -15,7 +11,7 @@ export async function getAll() {
 
 export async function create(body) {
   try {
-    const competencia = Competencia.query().insert(body);
+    const competencia = await Competencia.query().insert(body);
     return competencia;
   } catch (error) {
     throw error;
@@ -24,10 +20,9 @@ export async function create(body) {
 
 export async function findById(id) {
   try {
-    const competencia = await Competencia.query().findById(id);
-    if (competencia === undefined) {
-      throw new Error("Not Found");
-    }
+    const competencia = await Competencia.query()
+      .findById(id)
+      .throwIfNotFound();
     return competencia;
   } catch (error) {
     throw error;
@@ -44,10 +39,8 @@ export async function patch(id, body) {
     data.id = id;
     const competencia = await Competencia.query()
       .upsertGraph(data, options)
-      .where("id", id);
-    if (competencia === undefined) {
-      throw new Error("Not Found");
-    }
+      .where("id", id)
+      .throwIfNotFound();
     return competencia;
   } catch (error) {
     throw error;
@@ -56,7 +49,9 @@ export async function patch(id, body) {
 
 export async function deleteById(id) {
   try {
-    const competencia = await Competencia.query().deleteById(id);
+    const competencia = await Competencia.query()
+      .deleteById(id)
+      .throwIfNotFound();
     return competencia;
   } catch (error) {
     throw error;

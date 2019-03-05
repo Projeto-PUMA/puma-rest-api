@@ -1,10 +1,11 @@
-import * as pspDal from './dal';
-import { defaultResponse, errorResponse } from '../../../util/response';
+import * as pspDal from "./dal";
+import { defaultResponse, errorResponse } from "../../../util/response";
+import * as response from "../../../util/response/format";
 
 export async function getAll(req) {
   try {
     const res = await pspDal.getAll(req);
-    return defaultResponse(res);
+    return response.success(null, res);
   } catch (err) {
     return errorResponse(err.message);
   }
