@@ -1,6 +1,6 @@
-import * as pspDal from "./dal";
-import { defaultResponse, errorResponse } from "../../../util/response";
-import * as response from "../../../util/response/format";
+import * as pspDal from './dal';
+import { defaultResponse, errorResponse } from '../../../util/response';
+import * as response from '../../../util/response/format';
 
 export async function getAll(req) {
   try {
@@ -13,8 +13,8 @@ export async function getAll(req) {
 
 export async function create(body) {
   try {
-    const response = await pspDal.create(body);
-    return defaultResponse(response);
+    const psp = await pspDal.create(body);
+    return defaultResponse(psp);
   } catch (err) {
     return errorResponse(err.message);
   }
@@ -22,8 +22,8 @@ export async function create(body) {
 
 export async function findById(id) {
   try {
-    const response = await pspDal.findById(id);
-    return defaultResponse(response);
+    const psp = await pspDal.findById(id);
+    return defaultResponse(psp);
   } catch (err) {
     return errorResponse(err.message);
   }
@@ -31,16 +31,16 @@ export async function findById(id) {
 
 export async function patch(id, body) {
   try {
-    const response = await pspDal.patch(id, body);
-    return defaultResponse(response);
+    const psp = await pspDal.patch(id, body);
+    return defaultResponse(psp);
   } catch (err) {
     return errorResponse(err.message);
   }
 }
 export async function deleteById(id) {
   try {
-    const response = await pspDal.deleteById(id);
-    return defaultResponse(response);
+    const psp = await pspDal.deleteById(id);
+    return defaultResponse(psp);
   } catch (err) {
     return errorResponse(err.message);
   }

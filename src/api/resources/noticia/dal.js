@@ -3,8 +3,7 @@ import Noticia from './Noticia';
 export async function getAll(req) {
   try {
     const { limit, idNoticiaCategoria } = req.query;
-    const noticia = await Noticia
-      .query()
+    const noticia = await Noticia.query()
       .skipUndefined()
       .eager('[usuario(selectNomeAndId), categoria(selectCategoriaAndId)]', {
         selectNomeAndId: (builder) => {
@@ -30,7 +29,7 @@ export async function getAll(req) {
 
 export async function create(body) {
   try {
-    const noticia = Noticia.query().insert(body);
+    const noticia = await Noticia.query().insert(body);
     return noticia;
   } catch (error) {
     throw error;
@@ -52,11 +51,14 @@ export async function findById(id) {
 export async function patch(id, body) {
   try {
     const options = {
-      relate: true, noDelete: true,
+      relate: true,
+      noDelete: true,
     };
     const data = body;
     data.id = id;
-    const noticia = await Noticia.query().upsertGraph(data, options).where('id', id);
+    const noticia = await Noticia.query()
+      .upsertGraph(data, options)
+      .where('id', id);
     if (noticia === undefined) {
       throw new Error('Not Found');
     }

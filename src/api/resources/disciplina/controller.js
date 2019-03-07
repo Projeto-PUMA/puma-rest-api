@@ -1,12 +1,12 @@
-import * as disciplinaDal from "./dal";
-import * as response from "../../../util/response/format";
+import * as disciplinaDal from './dal';
+import * as response from '../../../util/response/format';
 
 export async function getAll(req) {
   try {
     const disciplinas = await disciplinaDal.getAll(req);
     return response.success(null, disciplinas);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -27,7 +27,7 @@ export async function findById(id) {
     const disciplina = await disciplinaDal.findById(id);
     return response.success(null, disciplina);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -39,7 +39,7 @@ export async function patch(id, body) {
     const disciplina = await disciplinaDal.patch(id, body);
     return response.success(null, disciplina);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -51,7 +51,7 @@ export async function deleteById(id) {
     const disciplina = await disciplinaDal.deleteById(id);
     return response.success(null, disciplina);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);

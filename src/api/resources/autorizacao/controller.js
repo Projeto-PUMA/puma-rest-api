@@ -41,6 +41,7 @@ export default function autorizacao(resource, action) {
           break;
         }
       }
+
       if (level === 'none') {
         res.status(HttpStatus.FORBIDDEN)
           .json(errorResponse('Forbidden', HttpStatus.FORBIDDEN));

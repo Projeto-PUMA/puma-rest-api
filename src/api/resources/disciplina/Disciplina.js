@@ -1,46 +1,46 @@
-import { Model } from "objection";
-import path from "path";
+import { Model } from 'objection';
+import path from 'path';
 
 class Disciplina extends Model {
   static get tableName() {
-    return "disciplina";
+    return 'disciplina';
   }
 
   static get idColumn() {
-    return "id";
+    return 'id';
   }
 
   static get relationMappings() {
     return {
       professor: {
         relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, "../professor/Professor"),
+        modelClass: path.join(__dirname, '../professor/Professor'),
         join: {
-          from: "disciplina.id",
-          to: "professor.disciplina_id"
-        }
+          from: 'disciplina.id',
+          to: 'professor.disciplina_id',
+        },
       },
       psp: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, "../psp/Psp"),
+        modelClass: path.join(__dirname, '../psp/Psp'),
         join: {
-          from: "disciplina.psp_id",
-          to: "psp.id"
-        }
+          from: 'disciplina.psp_id',
+          to: 'psp.id',
+        },
       },
       competencia: {
         relation: Model.ManyToManyRelation,
-        modelClass: path.join(__dirname, "../competencia/Competencia"),
+        modelClass: path.join(__dirname, '../competencia/Competencia'),
         join: {
-          from: "disciplina.id",
+          from: 'disciplina.id',
           through: {
-            from: "disciplina_competencia.disciplina_id",
-            to: "disciplina_competencia.competencia_id",
-            extra: ["peso"]
+            from: 'disciplina_competencia.disciplina_id',
+            to: 'disciplina_competencia.competencia_id',
+            extra: ['peso'],
           },
-          to: "competencia.id"
-        }
-      }
+          to: 'competencia.id',
+        },
+      },
     };
   }
 }

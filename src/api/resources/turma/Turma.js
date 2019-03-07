@@ -1,12 +1,12 @@
-import { Model } from "objection";
+import { Model } from 'objection';
 
 class Turma extends Model {
   static get tableName() {
-    return "turma";
+    return 'turma';
   }
 
   static get idColumn() {
-    return "id";
+    return 'id';
   }
 
   static get relationMappings() {
@@ -15,10 +15,10 @@ class Turma extends Model {
         relation: Model.HasManyRelation,
         modelClass: `${__dirname}/Competencia`,
         join: {
-          from: "competencia_categoria.id",
-          to: "disciplina.competencia_categoria_id"
-        }
-      }
+          from: 'competencia_categoria.id',
+          to: 'disciplina.competencia_categoria_id',
+        },
+      },
     };
   }
 }

@@ -1,12 +1,12 @@
-import * as competenciaDal from "./dal";
-import * as response from "../../../util/response/format";
+import * as competenciaDal from './dal';
+import * as response from '../../../util/response/format';
 
 export async function getAll(req) {
   try {
     const competencias = await competenciaDal.getAll(req);
     return response.success(null, competencias);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -27,7 +27,7 @@ export async function findById(id) {
     const competencia = await competenciaDal.findById(id);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -39,7 +39,7 @@ export async function patch(id, body) {
     const competencia = await competenciaDal.patch(id, body);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -51,7 +51,7 @@ export async function deleteById(id) {
     const competencia = await competenciaDal.deleteById(id);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message == "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
