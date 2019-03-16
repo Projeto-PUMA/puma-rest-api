@@ -1,10 +1,10 @@
-import * as professorDal from "./dal";
+import * as turmaDal from "./dal";
 import * as response from "../../../util/response/format";
 
 export async function getAll(req) {
   try {
-    const professores = await professorDal.getAll(req);
-    return response.success(null, professores);
+    const turmas = await turmaDal.getAll(req);
+    return response.success(null, turmas);
   } catch (err) {
     if (err.message === "NotFoundError") {
       return response.notFound();
@@ -15,8 +15,8 @@ export async function getAll(req) {
 
 export async function create(body) {
   try {
-    const professor = await professorDal.create(body);
-    return response.created(undefined, professor);
+    const turma = await turmaDal.create(body);
+    return response.created(undefined, turma);
   } catch (err) {
     return response.badRequest(err.message);
   }
@@ -24,8 +24,8 @@ export async function create(body) {
 
 export async function findById(id) {
   try {
-    const professor = await professorDal.findById(id);
-    return response.success(null, professor);
+    const turma = await turmaDal.findById(id);
+    return response.success(null, turma);
   } catch (err) {
     if (err.message === "NotFoundError") {
       return response.notFound();
@@ -36,8 +36,8 @@ export async function findById(id) {
 
 export async function patch(id, body) {
   try {
-    const professor = await professorDal.patch(id, body);
-    return response.success(null, professor);
+    const turma = await turmaDal.patch(id, body);
+    return response.success(null, turma);
   } catch (err) {
     if (err.message === "NotFoundError") {
       return response.notFound();
@@ -48,8 +48,8 @@ export async function patch(id, body) {
 
 export async function deleteById(id) {
   try {
-    const professor = await professorDal.deleteById(id);
-    return response.success(null, professor);
+    const turma = await turmaDal.deleteById(id);
+    return response.success(null, turma);
   } catch (err) {
     if (err.message === "NotFoundError") {
       return response.notFound();
