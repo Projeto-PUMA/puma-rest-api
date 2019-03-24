@@ -19,6 +19,7 @@ export default route => {
     res.status(response.statusCode);
     res.json(response.data);
   });
+  
   route.route("/auth/esqueciMinhaSenha/:token").get(async (req, res) => {
     const response = await confirmEmail(req);
     res.status(response.statusCode);

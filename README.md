@@ -3,8 +3,8 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Plataforma Unificada de Metodologia Ativa](#plataforma-unificada-de-metodologia-ativa)
-  - [Endpoints](#endpoints)
   - [Base URL](#base-url)
+  - [Endpoints](#endpoints)
     - [`/usuario/*`](#usuario)
       - [`POST /usuario`](#post-usuario)
       - [`GET /usuario:id`](#get-usuarioid)
@@ -39,7 +39,7 @@
       - [`POST /competencia`](#post-competencia)
       - [`GET /competencia/`](#get-competencia)
       - [`GET /competencia/:id`](#get-competenciaid)
-      - [`PATCH /psp/:id`](#patch-pspid-1)
+      - [`PATCH /competencia/:id`](#patch-competenciaid)
       - [`DELETE /competencia/:id`](#delete-competenciaid)
   - [Lista de Identificadores](#lista-de-identificadores)
     - [Papeis](#papeis)
@@ -54,12 +54,12 @@
 
 # Plataforma Unificada de Metodologia Ativa
 
-## Endpoints
-Os endpoints estão divididos por funcionalidade.
 
 ## Base URL
 
 A URL para qualquer requisição possui a url base **api**: `localhost:300/api/{resource}`
+## Endpoints
+Os endpoints estão divididos por funcionalidade.
 
 ### `/usuario/*`
 São os endpoints relacionados ao CRUD do usuário.
@@ -475,10 +475,10 @@ Cria uma competência ou uma competência filha.
 
 | Parametro    | Tipo    | Descricao                                | Obrigatorio? |
 | ------------ | ------- | ---------------------------------------- | ------------ |
-|competencia_categoria_id | integer | categoria da competencia: 1 - tecnica 2 - transversal|sim
-|competencia_pai_id | integer | identificador da categoria pai | não
-|nome | string | nome da categoria | sim|
-|descricao | string | descricão da categoria | sim
+|competencia_categoria_id | integer | categoria da competência: 1 - tecnica 2 - transversal|sim, caso a competência for do tipo pai
+|competencia_pai_id | integer | identificador da competência pai | não
+|nome | string | nome da competência | sim|
+|descricao | string | descricão da competência | sim
 
 Exemplo:
 
@@ -503,7 +503,7 @@ Exemplo:
 
 - Retorno: `HTTP Status 200` e a competência encontrada.
 
-#### `PATCH /psp/:id`
+#### `PATCH /competencia/:id`
 
 Edita uma competência ou uma competência filha.
 

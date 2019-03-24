@@ -13,6 +13,7 @@ const config = {
   emailUsr: process.env.EMAIL_USR,
   emailPass: process.env.EMAIL_PASS,
   host: process.env.HOST,
+  client: 'pumaunb.herokuapp.com'
 };
 
 export default config;
