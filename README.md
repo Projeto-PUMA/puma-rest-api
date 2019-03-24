@@ -29,10 +29,23 @@
       - [`GET /projeto/:id`](#get-projetoid)
       - [`PATCH /projeto/:id`](#patch-projetoid)
       - [`DELETE /projeto/:id`](#delete-projetoid)
+    - [`/psp/*`](#psp)
+      - [`POST /psp`](#post-psp)
+      - [`GET /psp/`](#get-psp)
+      - [`GET /psp/:id`](#get-pspid)
+      - [`PATCH /psp/:id`](#patch-pspid)
+      - [`DELETE /psp/:id`](#delete-pspid)
+    - [`/competencia/*`](#competencia)
+      - [`POST /competencia`](#post-competencia)
+      - [`GET /competencia/`](#get-competencia)
+      - [`GET /competencia/:id`](#get-competenciaid)
+      - [`PATCH /psp/:id`](#patch-pspid-1)
+      - [`DELETE /competencia/:id`](#delete-competenciaid)
   - [Lista de Identificadores](#lista-de-identificadores)
     - [Papeis](#papeis)
     - [Categoria de Notícias](#categoria-de-not%C3%ADcias)
     - [Categoria dos Endereços](#categoria-dos-endere%C3%A7os)
+    - [Categoria das Competências](#categoria-das-compet%C3%AAncias)
     - [Status dos Projetos](#status-dos-projetos)
     - [PSP](#psp)
     - [Papéis, Ações e Recursos](#pap%C3%A9is-a%C3%A7%C3%B5es-e-recursos)
@@ -390,6 +403,136 @@ Exemplo de url com parâmetros:
 
 Retorno: `HTTP Status 200`.
 
+### `/psp/*`
+São os endpoints relacionados ao CRUD de psp.
+
+#### `POST /psp`
+
+Cria um novo PSP ou um PSP filho (subcategoria).
+
+| Parametro    | Tipo    | Descricao                                | Obrigatorio? |
+| ------------ | ------- | ---------------------------------------- | ------------ |
+|nome|string| nome do psp| sim|
+|descricao|string| descrição do psp| sim|
+|psp_pai_id|integer|id do PSP pai. Caso seja enviado, esse psp será entendido como um PSP subcategoria| não
+
+Exemplo: 
+
+```
+{        
+    "descricao": "Outras",
+    "psp_pai_id": 3,
+    "nome": "Outras",
+}
+```
+
+#### `GET /psp/`
+
+- Retorno: `HTTP Status 200` e **todos** os psp encontradas.
+
+#### `GET /psp/:id`
+
+| Parametro | Tipo    | Descricao     | Obrigatorio? |
+| --------- | ------- | ------------- | ------------ |
+| id        | integer | id do psp | sim          |
+
+- Retorno: `HTTP Status 200` e o psp encontrado.
+
+#### `PATCH /psp/:id`
+
+Edita um PSP ou um PSP filho (subcategoria).
+
+| Parametro    | Tipo    | Descricao                                | Obrigatorio? |
+| ------------ | ------- | ---------------------------------------- | ------------ |
+|nome|string| nome do psp| não*|
+|descricao|string| descrição do psp| não*|
+|psp_pai_id|integer|id do PSP pai. Caso seja enviado, esse psp será entendido como um PSP subcategoria| não*
+
+Exemplo: 
+
+```
+{        
+    "descricao": "Outras",
+
+}
+```
+* Pelo menos um é obrigatório.
+
+#### `DELETE /psp/:id`
+
+| Parametro | Tipo    | Descricao     | Obrigatorio? |
+| --------- | ------- | ------------- | ------------ |
+| id        | integer | ID do psp | sim          |
+
+Retorno: `HTTP Status 200`.
+
+### `/competencia/*`
+São os endpoints relacionados ao CRUD de competência.
+
+#### `POST /competencia`
+
+Cria uma competência ou uma competência filha.
+
+| Parametro    | Tipo    | Descricao                                | Obrigatorio? |
+| ------------ | ------- | ---------------------------------------- | ------------ |
+|competencia_categoria_id | integer | categoria da competencia: 1 - tecnica 2 - transversal|sim
+|competencia_pai_id | integer | identificador da categoria pai | não
+|nome | string | nome da categoria | sim|
+|descricao | string | descricão da categoria | sim
+
+Exemplo:
+
+```
+{
+    "competencia_categoria_id": 1,
+    "competencia_pai_id": null,
+    "nome": "Competencia 1",
+    "descricao": "Lorem ipsum",
+}
+```
+
+#### `GET /competencia/`
+
+- Retorno: `HTTP Status 200` e **todos** as competências encontradas.
+
+#### `GET /competencia/:id`
+
+| Parametro | Tipo    | Descricao     | Obrigatorio? |
+| --------- | ------- | ------------- | ------------ |
+| id        | integer | id da competência | sim          |
+
+- Retorno: `HTTP Status 200` e a competência encontrada.
+
+#### `PATCH /psp/:id`
+
+Edita uma competência ou uma competência filha.
+
+| Parametro    | Tipo    | Descricao                                | Obrigatorio? |
+| ------------ | ------- | ---------------------------------------- | ------------ |
+|competencia_categoria_id | integer | categoria da competencia: 1 - tecnica 2 - transversal|não*
+|competencia_pai_id | integer | identificador da categoria pai | não*
+|nome | string | nome da categoria | não*|
+|descricao | string | descricão da categoria | não*
+
+Exemplo: 
+
+```
+{        
+    "nome": "Competencia 5",
+    "descricao": "update da descricao"
+
+}
+```
+* Pelo menos um é obrigatório.
+
+#### `DELETE /competencia/:id`
+
+| Parametro | Tipo    | Descricao     | Obrigatorio? |
+| --------- | ------- | ------------- | ------------ |
+| id        | integer | ID do psp | sim          |
+
+Retorno: `HTTP Status 200`.
+
 ## Lista de Identificadores
 
 ### Papeis
@@ -418,6 +561,14 @@ Retorno: `HTTP Status 200`.
 | --- | ----------- |
 | 1   | Residencial |
 | 2   | Comercial   |
+
+### Categoria das Competências
+
+| id  | categoria   |
+| --- | ----------- |
+| 1   | Técnica |
+| 2   | Transversal   |
+
 
 ### Status dos Projetos
 
