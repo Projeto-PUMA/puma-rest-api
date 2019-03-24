@@ -3,7 +3,7 @@ import * as response from "../../../util/response/format";
 
 export function filtraFilhos(competencias) {
   let filtered = competencias.filter(competencia => {
-    if (competencia.competencia_categoria_id !== null) {
+    if (competencia.competencia_pai_id == null) {
       return competencia;
     }
   });
