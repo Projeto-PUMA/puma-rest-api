@@ -1,12 +1,12 @@
-import * as turmaDal from "./dal";
-import * as response from "../../../util/response/format";
+import * as turmaDal from './dal';
+import * as response from '../../../util/response/format';
 
 export async function getAll(req) {
   try {
     const turmas = await turmaDal.getAll(req);
     return response.success(null, turmas);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -27,7 +27,7 @@ export async function findById(id) {
     const turma = await turmaDal.findById(id);
     return response.success(null, turma);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -39,7 +39,7 @@ export async function patch(id, body) {
     const turma = await turmaDal.patch(id, body);
     return response.success(null, turma);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -51,7 +51,7 @@ export async function deleteById(id) {
     const turma = await turmaDal.deleteById(id);
     return response.success(null, turma);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);

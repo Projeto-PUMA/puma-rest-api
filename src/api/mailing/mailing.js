@@ -1,22 +1,22 @@
-import nodemailer from "nodemailer";
-import config from "../../config";
+import nodemailer from 'nodemailer';
+import config from '../../config';
 
-require("dotenv").config();
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
+  service: 'Gmail',
   auth: {
     user: config.emailUsr,
-    pass: config.emailPass
-  }
+    pass: config.emailPass,
+  },
 });
 
 export async function emailConfirmacao(email, token) {
   try {
     const mailOptions = {
-      from: "Plataforma Unificada de Metodologia Ativa", // sender address
+      from: 'Plataforma Unificada de Metodologia Ativa', // sender address
       to: `${email}`, // list of receivers
-      subject: "Confirme seu e-mail", // Subject line
+      subject: 'Confirme seu e-mail', // Subject line
       html: `<b>Olá! </b>
             <p> 
             Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
@@ -24,8 +24,8 @@ export async function emailConfirmacao(email, token) {
             Para ativar sua conta, clique
             <a href="https://${config.client}/token/${token}"> aqui </a>
             ou copie e cole no seu navegador o link a seguir: ${
-              config.client
-            }/token/${token}` // html body
+  config.client
+}/token/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
@@ -37,20 +37,20 @@ export async function emailConfirmacao(email, token) {
 export async function esqueciSenha(email, token) {
   try {
     const mailOptions = {
-      from: "Plataforma Unificada de Metodologia Ativa", // sender address
+      from: 'Plataforma Unificada de Metodologia Ativa', // sender address
       to: `${email}`, // list of receivers
-      subject: "Recuperar minha senha", // Subject line
+      subject: 'Recuperar minha senha', // Subject line
       html: `<b>Olá! </b>
             <p> 
             Seja bem vindo à Plataforma Unificada de Metodologia Ativa!
             <p>
             Para resetar sua senha, clique
             <a href="${
-              config.host
-            }/api/auth/esqueciMinhaSenha/${token}"> aqui </a>
+  config.host
+}/api/auth/esqueciMinhaSenha/${token}"> aqui </a>
             ou copie e cole no seu navegador o link a seguir: ${
-              config.host
-            }/api/auth/esqueciMinhaSenha/${token}` // html body
+  config.host
+}/api/auth/esqueciMinhaSenha/${token}`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
@@ -62,18 +62,18 @@ export async function esqueciSenha(email, token) {
 export async function alteracaoStatusProjeto(projeto) {
   try {
     const mailOptions = {
-      from: "Plataforma Unificada de Metodologia Ativa", // sender address
+      from: 'Plataforma Unificada de Metodologia Ativa', // sender address
       to: `${projeto.usuario.email}`, // list of receivers
-      subject: "Alteração no status do seu projeto", // Subject line
+      subject: 'Alteração no status do seu projeto', // Subject line
       html: `<b>Olá! </b>
           <p>
           O seu projeto <b>${
-            projeto.titulo
-          }</b> teve o status alterado para: <b>${projeto.status.status}</b>. 
+  projeto.titulo
+}</b> teve o status alterado para: <b>${projeto.status.status}</b>. 
           <p>
           Para mais informações, acesse sua conta no <a href="${
-            config.host
-          }"> PUMA </a>` // html body
+  config.host
+}"> PUMA </a>`, // html body
     };
     await transporter.sendMail(mailOptions);
   } catch (err) {
