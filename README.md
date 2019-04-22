@@ -140,7 +140,7 @@ São os endpoints relacionados ao CRUD do usuário.
 | endereco_categoria_id | integer | Residencial (id=1), Comercial(id=2)                  | nao*         |
 | profissao_id          | string  | Codigo da Classificação Brasileira de Ocupações 2016 | nao*         |
 | telefone              | string  | Telefone do usuário                                  | nao*         |
-| papel                | array de inteiros  | papeis do usuário                         | nao*         |
+| papel                | array de objetos  | papeis do usuário                         | nao*         |
 
 *ao menos um parâmetro é obrigatório
 
@@ -148,6 +148,14 @@ São os endpoints relacionados ao CRUD do usuário.
  
         {
             "senha": "novaSenha",
+            "papel": [
+                        {
+                          "id": 1
+                        },
+                        {
+                          "id": 2
+                        }
+                     ]
         }
 
 
