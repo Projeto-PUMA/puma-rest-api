@@ -14,7 +14,7 @@ export async function getAll() {
         'escolaridade',
         'email',
         'created_at',
-        'updated_at',
+        'updated_at'
       );
     if (usuario === undefined) {
       throw new Error('Not Found');
@@ -31,12 +31,14 @@ export async function grantsPapel(id, nomePapel) {
       .select()
       .first()
       .where('nome', nomePapel);
-    await transaction(Usuario.knex(), trx => Usuario.query(trx)
-      .allowUpsert('[papel]')
-      .upsertGraph(
-        { id, papel: { id: papel.id } },
-        { noDelete: true, relate: true },
-      ));
+    await transaction(Usuario.knex(), trx =>
+      Usuario.query(trx)
+        .allowUpsert('[papel]')
+        .upsertGraph(
+          { id, papel: { id: papel.id } },
+          { noDelete: true, relate: true }
+        )
+    );
   } catch (error) {
     throw error;
   }
@@ -44,9 +46,11 @@ export async function grantsPapel(id, nomePapel) {
 
 export async function create(body) {
   try {
-    const usuario = await transaction(Usuario.knex(), trx => Usuario.query(trx)
-      .allowInsert('[endereco, profissao, telefone]')
-      .insertGraph(body, { relate: true, insertMissing: true }));
+    const usuario = await transaction(Usuario.knex(), trx =>
+      Usuario.query(trx)
+        .allowInsert('[endereco, profissao, telefone]')
+        .insertGraph(body, { relate: true, insertMissing: true })
+    );
     await grantsPapel(usuario.id, 'USUARIO');
     return usuario;
   } catch (error) {
@@ -106,7 +110,9 @@ export async function patch(id, body) {
     const usuario = await Usuario.query().upsertGraph(data, {
       noDelete: true,
       relate: true,
+      unrelate: true,
     });
+    // const usuario = await Usuario.query().insertGraph(body);
     if (usuario === undefined) {
       throw new Error('Not Found');
     }

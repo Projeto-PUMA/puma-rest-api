@@ -1,8 +1,8 @@
-import * as competenciaDal from "./dal";
-import * as response from "../../../util/response/format";
+import * as competenciaDal from './dal';
+import * as response from '../../../util/response/format';
 
 export function filtraFilhos(competencias) {
-  let filtered = competencias.filter(competencia => {
+  const filtered = competencias.filter((competencia) => {
     if (competencia.competencia_pai_id == null) {
       return competencia;
     }
@@ -17,7 +17,7 @@ export async function getAll(req) {
     const filtered = filtraFilhos(await competencias);
     return response.success(null, filtered);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -41,7 +41,7 @@ export async function findById(id) {
     const competencia = await competenciaDal.findById(id);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -56,7 +56,7 @@ export async function patch(id, body) {
     const competencia = await competenciaDal.patch(id, body);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
@@ -68,7 +68,7 @@ export async function deleteById(id) {
     const competencia = await competenciaDal.deleteById(id);
     return response.success(null, competencia);
   } catch (err) {
-    if (err.message === "NotFoundError") {
+    if (err.message === 'NotFoundError') {
       return response.notFound();
     }
     return response.internalError(err.message);
