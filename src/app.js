@@ -18,7 +18,15 @@ Model.knex(knex);
 
 const app = express();
 
-app.use(cors());
+var corsMiddleware = function(req, res, next) {
+	    res.header('Access-Control-Allow-Origin', '*'); //replace localhost with actual host
+	    res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
+	    res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
+
+	    next();
+}
+
+app.use(corsMiddleware);
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.set('port', config.port || 3000);
