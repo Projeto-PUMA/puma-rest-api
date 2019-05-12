@@ -83,7 +83,6 @@ exports.seed = knex => (
         },
 
         {
-
           nome: 'Elaboração de Projeto Conceitual de Produto',
           psp_pai_id: 6,
           descricao: 'Elaboração de Projeto Conceitual de Produto',
