@@ -27,6 +27,9 @@ module.exports = {
       min: 0,
       max: 15,
     },
+    seeds: {
+      directory: './seeds',
+    },
   },
   production: {
     client: 'pg',
@@ -37,6 +40,9 @@ module.exports = {
     pool: {
       min: 0,
       max: 15,
+    },
+    seeds: {
+      directory: './seeds',
     },
   },
   onUpdateTrigger: table => `
