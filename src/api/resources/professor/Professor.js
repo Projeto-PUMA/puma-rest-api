@@ -1,6 +1,5 @@
 import { Model } from 'objection';
 import path from 'path';
-
 class Professor extends Model {
   static get tableName() {
     return 'professor';
@@ -28,6 +27,14 @@ class Professor extends Model {
           to: 'disciplina.id',
         },
       },
+      turma: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, '../turma/Turma'),
+        join: {
+          from: 'professor.id',
+          to: 'turma.professor_id',
+        },
+      }
     };
   }
 }

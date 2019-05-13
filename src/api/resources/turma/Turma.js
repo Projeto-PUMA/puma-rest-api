@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import path from 'path';
 
 class Turma extends Model {
   static get tableName() {
@@ -11,14 +12,22 @@ class Turma extends Model {
 
   static get relationMappings() {
     return {
-      competencia: {
-        relation: Model.HasManyRelation,
-        modelClass: `${__dirname}/Competencia`,
+      professor: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: path.join(__dirname, '../professor/Professor'),
         join: {
-          from: 'competencia_categoria.id',
-          to: 'disciplina.competencia_categoria_id',
-        },
+          from: 'turma.professor_id',
+          to: 'professor.id'
+        }
       },
+      status: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: `${__dirname}/TurmaStatus`,
+        join: {
+          from: 'turma.status_id',
+          to: 'turma_status.id'
+        }
+      }
     };
   }
 }

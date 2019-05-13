@@ -1,8 +1,8 @@
 import * as professorController from './controller';
 
-export default (route) => {
+export default route => {
   route.get('/professor', async (req, res, next) => {
-    const response = await professorController.getAll(req);
+    const response = await professorController.getAll();
     res.status(response.statusCode).json(response);
   });
 
@@ -12,7 +12,6 @@ export default (route) => {
   });
 
   route.post('/professor', async (req, res) => {
-    console.log('here');
     const response = await professorController.create(req.body);
     res.status(response.statusCode).json(response);
   });

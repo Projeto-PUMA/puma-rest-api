@@ -1,16 +1,15 @@
 import Professor from './Professor';
 
-export async function getAll(limit) {
+export async function getAll() {
   try {
     const professores = await Professor.query()
       .skipUndefined()
-      .eager('[usuario(selectNomeAndId).telefone, disciplina]', {
-        selectNomeAndId: (builder) => {
-          builder.select('nome', 'email', 'id');
-        },
+      .eager('[usuario(selectNome), disciplina, turma]', {
+        selectNome: builder => {
+          builder.select('nome');
+        }
       })
       .orderBy('created_at', 'desc')
-      .limit(limit)
       .throwIfNotFound();
     return professores;
   } catch (error) {
@@ -33,10 +32,10 @@ export async function findById(id) {
   try {
     const professor = await Professor.query()
       .findById(id)
-      .eager('[usuario(selectNomeAndId).telefone, disciplina]', {
-        selectNomeAndId: (builder) => {
-          builder.select('nome', 'email', 'id');
-        },
+      .eager('[usuario(selectNomeAndId), disciplina]', {
+        selectNomeAndId: builder => {
+          builder.select('nome', 'id');
+        }
       })
       .throwIfNotFound();
     return professor;
@@ -49,7 +48,7 @@ export async function patch(id, body) {
   try {
     const options = {
       relate: true,
-      noDelete: true,
+      noDelete: true
     };
     const data = body;
     data.id = id;

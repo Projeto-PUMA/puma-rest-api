@@ -27,20 +27,7 @@ class Disciplina extends Model {
           from: 'disciplina.psp_id',
           to: 'psp.id',
         },
-      },
-      competencia: {
-        relation: Model.ManyToManyRelation,
-        modelClass: path.join(__dirname, '../competencia/Competencia'),
-        join: {
-          from: 'disciplina.id',
-          through: {
-            from: 'disciplina_competencia.disciplina_id',
-            to: 'disciplina_competencia.competencia_id',
-            extra: ['peso'],
-          },
-          to: 'competencia.id',
-        },
-      },
+      }
     };
   }
 }
