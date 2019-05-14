@@ -1,9 +1,10 @@
 import * as professorDal from './dal';
 import * as response from '../../../util/response/format';
 
-export async function getAll(req) {
+
+export async function getAll(idDisciplina) {
   try {
-    const professores = await professorDal.getAll(req);
+    const professores = await professorDal.getAll(idDisciplina);
     return response.success(null, professores);
   } catch (err) {
     if (err.message === 'NotFoundError') {
@@ -13,18 +14,18 @@ export async function getAll(req) {
   }
 }
 
-export async function create(body) {
+export async function create(idDisciplina, body) {
   try {
-    const professor = await professorDal.create(body);
+    const professor = await professorDal.create(idDisciplina, body);
     return response.created(undefined, professor);
   } catch (err) {
     return response.badRequest(err.message);
   }
 }
 
-export async function findById(id) {
+export async function findById(idDisciplina, idProfessor) {
   try {
-    const professor = await professorDal.findById(id);
+    const professor = await professorDal.findById(idDisciplina, idProfessor);
     return response.success(null, professor);
   } catch (err) {
     if (err.message === 'NotFoundError') {
@@ -34,21 +35,9 @@ export async function findById(id) {
   }
 }
 
-export async function patch(id, body) {
+export async function deleteById(idProfessor) {
   try {
-    const professor = await professorDal.patch(id, body);
-    return response.success(null, professor);
-  } catch (err) {
-    if (err.message === 'NotFoundError') {
-      return response.notFound();
-    }
-    return response.internalError(err.message);
-  }
-}
-
-export async function deleteById(id) {
-  try {
-    const professor = await professorDal.deleteById(id);
+    const professor = await professorDal.deleteById(idProfessor);
     return response.success(null, professor);
   } catch (err) {
     if (err.message === 'NotFoundError') {

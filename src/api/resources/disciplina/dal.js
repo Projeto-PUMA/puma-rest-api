@@ -3,7 +3,11 @@ import Disciplina from './Disciplina';
 export async function getAll() {
   try {
     const disciplinas = await Disciplina.query()
-      .eager('[competencia.pai, professor.usuario]')
+      .eager('[professor.usuario(selectNomeAndId), psp(selectNomeAndId)]', {
+        selectNomeAndId: (builder) => {
+          builder.select('nome', 'id');
+        },
+      })
       .throwIfNotFound();
     return disciplinas;
   } catch (error) {
@@ -26,7 +30,11 @@ export async function findById(id) {
   try {
     const disciplina = await Disciplina.query()
       .findById(id)
-      .eager('[competencia.pai, professor.usuario]')
+      .eager('[professor.usuario(selectNomeAndId), psp(selectNomeAndId)]', {
+        selectNomeAndId: (builder) => {
+          builder.select('nome', 'id');
+        },
+      })
       .throwIfNotFound();
     return disciplina;
   } catch (error) {

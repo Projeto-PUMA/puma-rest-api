@@ -12,7 +12,6 @@ export default (route) => {
   });
 
   route.post('/monitor', async (req, res) => {
-    console.log('here');
     const response = await professorController.create(req.body);
     res.status(response.statusCode).json(response);
   });

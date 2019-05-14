@@ -1,14 +1,15 @@
 import Professor from './Professor';
 
-export async function getAll() {
+export async function getAll(idDisciplina) {
   try {
     const professores = await Professor.query()
       .skipUndefined()
-      .eager('[usuario(selectNome), disciplina, turma]', {
-        selectNome: builder => {
-          builder.select('nome');
-        }
+      .eager('[usuario(selectNomeAndId), turma]', {
+        selectNomeAndId: (builder) => {
+          builder.select('nome', 'id');
+        },
       })
+      .where('disciplina_id', idDisciplina)
       .orderBy('created_at', 'desc')
       .throwIfNotFound();
     return professores;
@@ -17,10 +18,11 @@ export async function getAll() {
   }
 }
 
-export async function create(body) {
+export async function create(idDisciplina, body) {
   try {
+    const data = { usuario_id: body.usuario_id, disciplina_id: idDisciplina };
     const professor = await Professor.query()
-      .insert(body)
+      .insert(data)
       .returning('*');
     return professor;
   } catch (error) {
@@ -28,15 +30,16 @@ export async function create(body) {
   }
 }
 
-export async function findById(id) {
+export async function findById(idDisciplina, idProfessor) {
   try {
     const professor = await Professor.query()
-      .findById(id)
-      .eager('[usuario(selectNomeAndId), disciplina]', {
-        selectNomeAndId: builder => {
+      .findById(idProfessor)
+      .eager('[usuario(selectNomeAndId), turma]', {
+        selectNomeAndId: (builder) => {
           builder.select('nome', 'id');
-        }
+        },
       })
+      .where('disciplina_id', idDisciplina)
       .throwIfNotFound();
     return professor;
   } catch (error) {
@@ -48,7 +51,7 @@ export async function patch(id, body) {
   try {
     const options = {
       relate: true,
-      noDelete: true
+      noDelete: true,
     };
     const data = body;
     data.id = id;

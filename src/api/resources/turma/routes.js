@@ -12,7 +12,6 @@ export default (route) => {
   });
 
   route.post('/turma', async (req, res) => {
-    console.log('here');
     const response = await turmaController.create(req.body);
     res.status(response.statusCode).json(response);
   });

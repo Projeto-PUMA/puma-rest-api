@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import path from 'path';
+
 class Professor extends Model {
   static get tableName() {
     return 'professor';
@@ -34,7 +35,7 @@ class Professor extends Model {
           from: 'professor.id',
           to: 'turma.professor_id',
         },
-      }
+      },
     };
   }
 }

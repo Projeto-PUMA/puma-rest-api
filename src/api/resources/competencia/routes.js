@@ -12,7 +12,6 @@ export default (route) => {
   });
 
   route.post('/competencia', async (req, res) => {
-    console.log('here');
     const response = await competenciaController.create(req.body);
     res.status(response.statusCode).json(response);
   });

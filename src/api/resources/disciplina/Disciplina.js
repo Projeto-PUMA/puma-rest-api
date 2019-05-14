@@ -27,7 +27,7 @@ class Disciplina extends Model {
           from: 'disciplina.psp_id',
           to: 'psp.id',
         },
-      }
+      },
     };
   }
 }

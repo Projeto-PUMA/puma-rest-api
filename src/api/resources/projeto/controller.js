@@ -8,7 +8,6 @@ export async function getAll(req) {
     const res = await projetoDal.getAll(req);
     return defaultResponse(res);
   } catch (err) {
-    console.log(err);
     return errorResponse(err.message);
   }
 }

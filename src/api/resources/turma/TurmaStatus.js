@@ -16,9 +16,9 @@ class TurmaStatus extends Model {
         modelClass: `${__dirname}/TurmaStatus`,
         join: {
           from: 'turma_status.id',
-          to: 'turma.status_id'
-        }
-      }
+          to: 'turma.status_id',
+        },
+      },
     };
   }
 }

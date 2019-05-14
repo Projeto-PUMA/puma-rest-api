@@ -1,4 +1,3 @@
-import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { Model } from 'objection';
@@ -20,14 +19,14 @@ Model.knex(knex);
 const app = express();
 
 const corsMiddleware = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); //replace localhost with actual host
+  res.header('Access-Control-Allow-Origin', '*'); // replace localhost with actual host
   res.header(
     'Access-Control-Allow-Methods',
-    'OPTIONS, GET, PUT, PATCH, POST, DELETE'
+    'OPTIONS, GET, PUT, PATCH, POST, DELETE',
   );
   res.header(
     'Access-Control-Allow-Headers',
-    'Content-Type, X-Requested-With, Authorization'
+    'Content-Type, X-Requested-With, Authorization',
   );
   next();
 };
@@ -46,8 +45,8 @@ noticiaRoutes(router);
 projetoRoutes(router);
 pspRoutes(router);
 disciplinaRoutes(router);
+// professorRoutes(router);
 competenciaRoutes(router);
-professorRoutes(router);
 turmaRoutes(router);
 
 export default app;

@@ -17,17 +17,17 @@ class Turma extends Model {
         modelClass: path.join(__dirname, '../professor/Professor'),
         join: {
           from: 'turma.professor_id',
-          to: 'professor.id'
-        }
+          to: 'professor.id',
+        },
       },
       status: {
         relation: Model.BelongsToOneRelation,
         modelClass: `${__dirname}/TurmaStatus`,
         join: {
           from: 'turma.status_id',
-          to: 'turma_status.id'
-        }
-      }
+          to: 'turma_status.id',
+        },
+      },
     };
   }
 }
