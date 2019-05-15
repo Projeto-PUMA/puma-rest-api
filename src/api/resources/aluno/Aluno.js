@@ -1,9 +1,9 @@
 import { Model } from 'objection';
 import path from 'path';
 
-class Monitor extends Model {
+class Aluno extends Model {
   static get tableName() {
-    return 'monitor';
+    return 'aluno';
   }
 
   static get idColumn() {
@@ -16,20 +16,20 @@ class Monitor extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: path.join(__dirname, '../usuario/Usuario'),
         join: {
-          from: 'monitor.usuario_id',
+          from: 'aluno.usuario_id',
           to: 'usuario.id'
         }
       },
-      turma: {
+      equipe: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, '../turma/Turma'),
+        modelClass: path.join(__dirname, '../equipe/Equipe'),
         join: {
-          from: 'monitor.turma_id',
-          to: 'turma.id'
+          from: 'aluno.equipe_id',
+          to: 'equipe.id'
         }
       }
     };
   }
 }
 
-module.exports = Monitor;
+module.exports = Aluno;

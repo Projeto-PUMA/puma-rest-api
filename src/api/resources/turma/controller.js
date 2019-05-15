@@ -1,9 +1,9 @@
 import * as turmaDal from './dal';
 import * as response from '../../../util/response/format';
 
-export async function getAll(req) {
+export async function getAll(idDisciplina) {
   try {
-    const turmas = await turmaDal.getAll(req);
+    const turmas = await turmaDal.getAll(idDisciplina);
     return response.success(null, turmas);
   } catch (err) {
     if (err.message === 'NotFoundError') {

@@ -47,6 +47,6 @@ pspRoutes(router);
 disciplinaRoutes(router);
 // professorRoutes(router);
 competenciaRoutes(router);
-turmaRoutes(router);
+// turmaRoutes(router);
 
 export default app;
