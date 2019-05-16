@@ -13,7 +13,7 @@ const config = {
   emailUsr: process.env.EMAIL_USR,
   emailPass: process.env.EMAIL_PASS,
   host: process.env.HOST,
-  client: '164.41.9.93:8080',
+  client: process.env.CLIENT,
 };
 
 export default config;

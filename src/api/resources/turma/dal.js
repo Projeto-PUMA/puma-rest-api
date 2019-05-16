@@ -54,7 +54,6 @@ export async function findById(id) {
           selectTituloAndId: builder => {
             builder.select('titulo', 'id');
           },
-
           selectId: builder => {
             builder.select('id');
           }
